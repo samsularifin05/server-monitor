@@ -9,7 +9,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -50,6 +50,8 @@ export default function AdminLayout({
 }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar - Desktop */}
@@ -88,7 +90,10 @@ export default function AdminLayout({
         </nav>
 
         <div className="p-4 border-t border-gray-200">
-          <button className="flex items-center w-full gap-3 px-4 py-3 text-red-600 transition-all rounded-lg hover:bg-red-50">
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center w-full gap-3 px-4 py-3 text-red-600 transition-all rounded-lg cursor-pointer hover:bg-red-50"
+          >
             <LogOut className="w-5 h-5" />
             <span>Keluar</span>
           </button>

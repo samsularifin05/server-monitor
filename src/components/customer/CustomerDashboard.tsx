@@ -192,7 +192,7 @@ export default function CustomerDashboard() {
         {notifications.length > 0 && (
           <div className="p-4 border border-yellow-200 bg-yellow-50 rounded-xl">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="w-5 h-5 text-yellow-600  mt-0.5" />
               <div className="flex-1">
                 <h3 className="mb-2 font-semibold text-yellow-900">
                   Notifikasi Gangguan

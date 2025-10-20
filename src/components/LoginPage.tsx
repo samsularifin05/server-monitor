@@ -15,7 +15,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="flex items-center justify-center min-h-screen p-4 from-blue-50 to-blue-100">
       <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl">
         <div className="flex flex-col items-center mb-8">
           <div className="p-3 mb-4 bg-blue-600 rounded-xl">
@@ -64,7 +64,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="flex items-center justify-center w-full gap-2 py-3 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="flex items-center justify-center w-full gap-2 py-3 font-medium text-white transition-colors bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700"
           >
             <LogIn className="w-5 h-5" />
             Masuk
