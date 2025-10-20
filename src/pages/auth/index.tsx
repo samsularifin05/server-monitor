@@ -8,7 +8,10 @@ import { apiInstance } from "../../utils/axios";
 import { setItem } from "../../utils/localStroage";
 import { IResponseLoginDto } from "../../types/userdata";
 
-export default function LoginPage() {
+import { withGuest } from "../../middleware/guestOnly";
+import toast from "react-hot-toast";
+
+function LoginPage() {
   const navigate = useNavigate();
 
   const { handleSubmit, control } = useForm<LoginFormValues>({
@@ -20,13 +23,16 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    // console.log("Login:", data);
     try {
-      const response = await apiInstance.post<IResponseLoginDto>(
-        "/auth/login",
-        {
+      const response = await toast.promise(
+        apiInstance.post<IResponseLoginDto>("/auth/login", {
           user_id: data.user_id,
           password: data.password,
+        }),
+        {
+          loading: "Logging in...",
+          success: <b>Login berhasil!</b>,
+          error: <b>Login gagal.</b>,
         }
       );
       if (response.status === 200) {
@@ -37,7 +43,6 @@ export default function LoginPage() {
       console.error("Login failed:", error);
       alert("Login gagal. Silakan periksa kembali kredensial Anda.");
     }
-    // navigate("/admin");
   };
 
   return (
@@ -91,3 +96,7 @@ export default function LoginPage() {
     </div>
   );
 }
+
+const GuestLoginPage = withGuest(LoginPage);
+
+export default GuestLoginPage;

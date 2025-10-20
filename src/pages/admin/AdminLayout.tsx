@@ -52,6 +52,11 @@ export default function AdminLayout({
 
   const navigate = useNavigate();
 
+  const logoutApp = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar - Desktop */}
@@ -91,7 +96,7 @@ export default function AdminLayout({
 
         <div className="p-4 border-t border-gray-200">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => logoutApp()}
             className="flex items-center w-full gap-3 px-4 py-3 text-red-600 transition-all rounded-lg cursor-pointer hover:bg-red-50"
           >
             <LogOut className="w-5 h-5" />
@@ -148,7 +153,10 @@ export default function AdminLayout({
             </nav>
 
             <div className="p-4 border-t border-gray-200">
-              <button className="flex items-center w-full gap-3 px-4 py-3 text-red-600 transition-all rounded-lg hover:bg-red-50">
+              <button
+                onClick={() => logoutApp()}
+                className="flex items-center w-full gap-3 px-4 py-3 text-red-600 transition-all rounded-lg hover:bg-red-50"
+              >
                 <LogOut className="w-5 h-5" />
                 <span>Keluar</span>
               </button>

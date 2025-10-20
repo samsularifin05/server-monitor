@@ -6,8 +6,9 @@ import { Icustomer } from "./types";
 import { dataCustomers } from "./data";
 import { GlobalModal } from "../../../components";
 import { useModal } from "../../../store/useModal";
+import { withAuth } from "../../../middleware/checkLogin";
 
-export default function CustomersPage() {
+function CustomersPage() {
   const { openModal, closeModal } = useModal();
   const columns: Column<Icustomer>[] = [
     {
@@ -83,3 +84,6 @@ export default function CustomersPage() {
     </AdminLayout>
   );
 }
+
+const WrapperCustomer = withAuth(CustomersPage);
+export default WrapperCustomer;
