@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import AdminDashboard from "./components/admin/AdminDashboard";
-import CustomersPage from "./components/admin/CustomersPage";
-import StoresPage from "./components/admin/StoresPage";
-import ServersPage from "./components/admin/ServersPage";
-import UpdateStatusPage from "./components/admin/UpdateStatusPage";
-import CustomerDashboard from "./components/customer/CustomerDashboard";
-import PublicStatusPage from "./components/public/PublicStatusPage";
+import LoginPage from "./pages/auth";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import CustomersPage from "./pages/admin/customer";
+import StoresPage from "./pages/admin/StoresPage";
+import ServersPage from "./pages/admin/ServersPage";
+import UpdateStatusPage from "./pages/admin/UpdateStatusPage";
+import CustomerDashboard from "./pages/customer/CustomerDashboard";
+import PublicStatusPage from "./pages/public/PublicStatusPage";
 
 function App() {
   return (
