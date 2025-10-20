@@ -1,25 +1,25 @@
-import { Save, AlertCircle } from 'lucide-react';
-import { useState } from 'react';
-import AdminLayout from './AdminLayout';
+import { Save, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import AdminLayout from "./AdminLayout";
 
 export default function UpdateStatusPage() {
-  const [selectedServer, setSelectedServer] = useState('');
-  const [status, setStatus] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
+  const [selectedServer, setSelectedServer] = useState("");
+  const [status, setStatus] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
 
   const servers = [
-    'MongoDB Server',
-    'Alibaba Cloud',
-    'Biznet Server',
-    'AWS Server',
-    'Google Cloud',
-    'Azure Cloud',
+    "MongoDB Server",
+    "Alibaba Cloud",
+    "Biznet Server",
+    "AWS Server",
+    "Google Cloud",
+    "Azure Cloud",
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ selectedServer, status, description, date });
+    // Removed incomplete console.log statement
   };
 
   return (
@@ -31,16 +31,22 @@ export default function UpdateStatusPage() {
               <AlertCircle className="w-6 h-6 text-yellow-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Update Status Gangguan</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Update Status Gangguan
+              </h2>
               <p className="text-gray-600">
-                Perbarui status server dan informasikan kepada customer tentang kondisi terkini
+                Perbarui status server dan informasikan kepada customer tentang
+                kondisi terkini
               </p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="server" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="server"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Pilih Server
               </label>
               <select
@@ -60,7 +66,10 @@ export default function UpdateStatusPage() {
             </div>
 
             <div>
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Tanggal
               </label>
               <input
@@ -78,16 +87,18 @@ export default function UpdateStatusPage() {
                 Status Server
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <label className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                  status === 'normal'
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-gray-200 hover:border-green-300'
-                }`}>
+                <label
+                  className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    status === "normal"
+                      ? "border-green-500 bg-green-50"
+                      : "border-gray-200 hover:border-green-300"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="status"
                     value="normal"
-                    checked={status === 'normal'}
+                    checked={status === "normal"}
                     onChange={(e) => setStatus(e.target.value)}
                     className="sr-only"
                   />
@@ -95,16 +106,18 @@ export default function UpdateStatusPage() {
                   <span className="font-medium text-gray-800">Normal</span>
                 </label>
 
-                <label className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                  status === 'gangguan'
-                    ? 'border-yellow-500 bg-yellow-50'
-                    : 'border-gray-200 hover:border-yellow-300'
-                }`}>
+                <label
+                  className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    status === "gangguan"
+                      ? "border-yellow-500 bg-yellow-50"
+                      : "border-gray-200 hover:border-yellow-300"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="status"
                     value="gangguan"
-                    checked={status === 'gangguan'}
+                    checked={status === "gangguan"}
                     onChange={(e) => setStatus(e.target.value)}
                     className="sr-only"
                   />
@@ -112,16 +125,18 @@ export default function UpdateStatusPage() {
                   <span className="font-medium text-gray-800">Gangguan</span>
                 </label>
 
-                <label className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                  status === 'down'
-                    ? 'border-red-500 bg-red-50'
-                    : 'border-gray-200 hover:border-red-300'
-                }`}>
+                <label
+                  className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    status === "down"
+                      ? "border-red-500 bg-red-50"
+                      : "border-gray-200 hover:border-red-300"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="status"
                     value="down"
-                    checked={status === 'down'}
+                    checked={status === "down"}
                     onChange={(e) => setStatus(e.target.value)}
                     className="sr-only"
                   />
@@ -132,7 +147,10 @@ export default function UpdateStatusPage() {
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Deskripsi Gangguan
               </label>
               <textarea
@@ -166,13 +184,17 @@ export default function UpdateStatusPage() {
 
         {/* Example Preview */}
         <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="font-semibold text-blue-900 mb-2">Contoh Penggunaan:</h3>
+          <h3 className="font-semibold text-blue-900 mb-2">
+            Contoh Penggunaan:
+          </h3>
           <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
             <li>Pilih server yang ingin diupdate (misalnya: Alibaba Cloud)</li>
             <li>Masukkan tanggal update (misalnya: 20-10-2025)</li>
             <li>Pilih status: Normal / Gangguan / Down</li>
             <li>Isi deskripsi gangguan dengan detail yang jelas</li>
-            <li>Klik "Simpan Update" untuk mengirim notifikasi ke customer terkait</li>
+            <li>
+              Klik "Simpan Update" untuk mengirim notifikasi ke customer terkait
+            </li>
           </ol>
         </div>
       </div>

@@ -108,7 +108,7 @@ export default function AdminLayout({
       {/* Mobile Sidebar */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black bg-opacity-50 md:hidden"
+          className="fixed inset-0 z-50 bg-opacity-50 bg-black/50 md:hidden"
           onClick={() => setSidebarOpen(false)}
         >
           <aside
@@ -137,7 +137,8 @@ export default function AdminLayout({
                 const Icon = item.icon;
                 const isActive = activePage === item.id;
                 return (
-                  <button
+                  <Link
+                    to={item.path}
                     key={item.id}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                       isActive
@@ -147,7 +148,7 @@ export default function AdminLayout({
                   >
                     <Icon className="w-5 h-5" />
                     <span>{item.label}</span>
-                  </button>
+                  </Link>
                 );
               })}
             </nav>
