@@ -206,8 +206,8 @@ export default function PublicStatusPage() {
           </h3>
           <p className="max-w-2xl mx-auto text-sm text-gray-600">
             Halaman ini menampilkan status terkini dari semua server yang
-            dipantau oleh PublicStatusPage. Data diperbarui otomatis setiap
-            beberapa menit untuk memastikan informasi terbaru.
+            dipantau oleh Tim Kami. Data diperbarui otomatis setiap beberapa
+            menit untuk memastikan informasi terbaru.
           </p>
 
           <div className="flex items-center justify-center gap-6 mt-6">
