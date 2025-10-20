@@ -5,6 +5,7 @@ import {
   XCircle,
   Clock,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function PublicStatusPage() {
   const servers = [
@@ -224,12 +225,12 @@ export default function PublicStatusPage() {
             </div>
           </div>
 
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="inline-block mt-8 font-medium text-blue-600 transition-colors hover:text-blue-700"
           >
             Login untuk akses dashboard →
-          </a>
+          </Link>
         </div>
       </main>
     </div>
