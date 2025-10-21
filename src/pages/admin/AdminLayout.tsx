@@ -93,9 +93,7 @@ export default function AdminLayout({
               <Server className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">
-                Nagatech Dashboard
-              </h1>
+              <h1 className="text-xl font-bold text-gray-800">Nagatech</h1>
               <p className="text-xs text-gray-500">Admin Panel</p>
             </div>
           </div>

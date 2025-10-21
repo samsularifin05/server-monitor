@@ -129,7 +129,7 @@ export default function PublicStatusPage() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-gray-800">
-              PublicStatusPage
+              Informasi Status Server
             </h1>
             <p className="text-sm text-gray-500">Status Server Real-time</p>
           </div>
