@@ -1,10 +1,12 @@
 /* eslint-disable */
-import { Plus, Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useIsMobile } from "../../hook/useMobile";
+import { ActionButton } from "./types";
+import Button from "../button";
 
 export interface Column<T> {
-  key: keyof T;
+  key: keyof T | "action";
   header: string;
   render?: (value: any, row: T) => React.ReactNode;
 }
@@ -22,18 +24,17 @@ interface DataTableProps<T> {
   pageSize?: number;
   searchPlaceholder?: string;
   addButton?: AddButtonConfig;
+  loading?: boolean;
+  actions?: ActionButton<T>[];
 }
 
 export default function DataTable<T extends Record<string, any>>({
-  data,
+  data = [],
   columns,
+  loading = false,
   pageSize = 5,
+  actions = [],
   searchPlaceholder = "Cari...",
-  addButton = {
-    label: "Tambah Data",
-    icon: <Plus className="w-5 h-5" />,
-    show: true,
-  },
 }: DataTableProps<T>) {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -99,19 +100,26 @@ export default function DataTable<T extends Record<string, any>>({
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
           />
         </div>
 
-        {addButton?.show && (
-          <button
-            onClick={addButton?.onClick}
-            className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg flex items-center gap-2 font-medium transition-colors"
-          >
-            {addButton.icon ?? <Plus className="w-5 h-5" />}
-            {addButton.label ?? "Tambah Data"}
-          </button>
-        )}
+        {actions
+          .filter((cek) => cek.isAdd)
+          .map((action, actionIndex) => (
+            <Button
+              key={actionIndex}
+              variant={action.variant || "default"}
+              size={action.size || "md"}
+              onClick={() => action.onClick({} as T)}
+              className={action.className}
+              disabled={action.disabled?.({} as T)}
+            >
+              <div className="flex gap-2 items-center">
+                {action.icon} {action.label}
+              </div>
+            </Button>
+          ))}
       </div>
 
       {/* Table */}
@@ -133,10 +141,29 @@ export default function DataTable<T extends Record<string, any>>({
                   {col.header}
                 </th>
               ))}
+              <th
+                className={`px-6 py-3 items-center flex justify-center text-xs font-semibold tracking-wider text-gray-600 uppercase ${
+                  isMobile ? "hidden sm:table-cell" : ""
+                }`}
+              >
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
-            {paginatedData.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="py-10 text-center text-gray-500"
+                >
+                  <div className="flex items-center justify-center gap-2 text-gray-600">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Memuat data...</span>
+                  </div>
+                </td>
+              </tr>
+            ) : paginatedData.length > 0 ? (
               paginatedData.map((row, i) => (
                 <tr
                   key={i}
@@ -154,6 +181,30 @@ export default function DataTable<T extends Record<string, any>>({
                         : String(row[col.key])}
                     </td>
                   ))}
+
+                  <td
+                    className={`px-6 py-4 gap-2  items-center flex justify-center ${
+                      isMobile ? "hidden sm:table-cell" : ""
+                    }`}
+                  >
+                    {actions.length > 0 &&
+                      actions
+                        .filter((cek) => !cek.isAdd)
+                        .map((action, actionIndex) => (
+                          <Button
+                            key={actionIndex}
+                            variant={action.variant || "default"}
+                            size={action.size || "md"}
+                            onClick={() => action.onClick(row)}
+                            className={action.className}
+                            disabled={action.disabled?.(row)}
+                          >
+                            <div className="flex gap-2 items-center">
+                              {action.icon} {action.label}
+                            </div>
+                          </Button>
+                        ))}
+                  </td>
                 </tr>
               ))
             ) : (

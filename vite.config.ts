@@ -7,4 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["lucide-react"],
   },
+  build: {
+    sourcemap: false, // kadang sourcemap memicu eval
+  },
 });

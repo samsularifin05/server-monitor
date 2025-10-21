@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Controller, Control, FieldValues, FieldPath } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react"; // bisa ganti ikon lain
 
@@ -7,7 +7,7 @@ interface RenderTextInputProps<TFieldValues extends FieldValues = FieldValues> {
   name: FieldPath<TFieldValues>;
   placeholder?: string;
   label?: string;
-  type?: "text" | "email" | "password" | "number" | "date";
+  type?: React.HTMLInputTypeAttribute;
   required?: boolean;
   className?: string; // optional class tambahan
 }
@@ -23,6 +23,15 @@ const RenderTextInput = <TFieldValues extends FieldValues = FieldValues>({
 }: RenderTextInputProps<TFieldValues>) => {
   const [showPassword, setShowPassword] = useState(false);
 
+  if (type === "hidden") {
+    return (
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => <input type="hidden" {...field} />}
+      />
+    );
+  }
   const isPassword = type === "password";
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
@@ -39,11 +48,12 @@ const RenderTextInput = <TFieldValues extends FieldValues = FieldValues>({
             {label}
           </label>
           <input
+            id={name}
             {...field}
             type={inputType}
             placeholder={placeholder}
             required={required}
-            className={`w-full px-4 py-3 border  placeholder-gray-400 rounded-lg outline-none transition-all
+            className={`w-full px-4 py-2 border  placeholder-gray-400 rounded-lg outline-none transition-all
     ${
       fieldState.error
         ? "border-red-500 focus:border-red-500 focus:ring-red-500"

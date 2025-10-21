@@ -8,6 +8,7 @@ import {
   LogOut,
   Menu,
   X,
+  BoxIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,6 +23,12 @@ const menuItems = [
     label: "Dashboard",
     icon: LayoutDashboard,
     path: "/admin",
+  },
+  {
+    id: "group",
+    label: "Data Group",
+    icon: BoxIcon,
+    path: "/admin/group",
   },
   {
     id: "customers",

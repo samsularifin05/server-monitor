@@ -7,6 +7,7 @@ import ServersPage from "./pages/admin/ServersPage";
 import UpdateStatusPage from "./pages/admin/UpdateStatusPage";
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
 import PublicStatusPage from "./pages/public/PublicStatusPage";
+import GroupPage from "./pages/admin/group";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<PublicStatusPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/group" element={<GroupPage />} />
         <Route path="/admin/customers" element={<CustomersPage />} />
         <Route path="/admin/stores" element={<StoresPage />} />
         <Route path="/admin/servers" element={<ServersPage />} />
