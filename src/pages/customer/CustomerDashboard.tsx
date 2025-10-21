@@ -96,7 +96,7 @@ export default function CustomerDashboard() {
               </div>
               <button
                 onClick={() => navigate("/")}
-                className="p-2 text-red-600 transition-colors rounded-lg hover:bg-red-50"
+                className="p-2 text-red-600 cursor-pointer transition-colors rounded-lg hover:bg-red-50"
               >
                 <LogOut className="w-5 h-5" />
               </button>
