@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+import LiveChat from "../../components/LiveChat";
+
 export default function CustomerDashboard() {
   const customerName = "PT Teknologi Maju";
   const customerEmail = "info@tekmaju.com";
@@ -104,7 +106,7 @@ export default function CustomerDashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white border-b border-gray-200">
         <div className="px-4 py-4 mx-auto max-w-7xl md:px-8">
@@ -281,6 +283,11 @@ export default function CustomerDashboard() {
               </tbody>
             </table>
           </div>
+        </div>
+
+        {/* Live Chat Floating */}
+        <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 50 }}>
+          <LiveChat />
         </div>
       </main>
     </div>
