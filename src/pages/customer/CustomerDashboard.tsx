@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import LiveChat from "../../components/LiveChat";
+import LiveChat from "../../components/chat";
 
 export default function CustomerDashboard() {
   const customerName = "PT Teknologi Maju";

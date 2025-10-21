@@ -2,15 +2,17 @@ import { ReactNode, useState } from "react";
 import {
   LayoutDashboard,
   Users,
-  Store,
   Server,
   AlertCircle,
   LogOut,
   Menu,
   X,
   BoxIcon,
+  Database,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { getItem } from "../../utils/localStroage";
+import { IResponseLoginDto } from "../../types/userdata";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -31,17 +33,22 @@ const menuItems = [
     path: "/admin/group",
   },
   {
-    id: "customers",
-    label: "Data Customer",
+    id: "client",
+    label: "Data Client",
     icon: Users,
-    path: "/admin/customers",
+    path: "/admin/client",
   },
-  { id: "stores", label: "Data Toko", icon: Store, path: "/admin/stores" },
   {
-    id: "servers",
-    label: "Master Server",
+    id: "database",
+    label: "Database",
+    icon: Database,
+    path: "/admin/database",
+  },
+  {
+    id: "vps",
+    label: "Virtual Private Server",
     icon: Server,
-    path: "/admin/servers",
+    path: "/admin/vps",
   },
   {
     id: "updates",
@@ -63,6 +70,8 @@ export default function AdminLayout({
     localStorage.clear();
     navigate("/");
   };
+
+  const datausers = getItem<IResponseLoginDto>("userdata");
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -190,8 +199,10 @@ export default function AdminLayout({
             </h2>
             <div className="flex items-center gap-3">
               <div className="hidden text-right md:block">
-                <p className="text-sm font-medium text-gray-800">Admin User</p>
-                <p className="text-xs text-gray-500">admin@servermonitor.com</p>
+                <p className="text-sm font-medium text-gray-800">
+                  {datausers.user_name}
+                </p>
+                <p className="text-xs text-gray-500">{datausers.level}</p>
               </div>
               <div className="flex items-center justify-center w-10 h-10 font-medium text-white bg-blue-600 rounded-full">
                 A

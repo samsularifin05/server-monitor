@@ -9,8 +9,9 @@ import {
   StopCircle,
 } from "lucide-react";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+import messageSent from "./messageSent.mp3";
 
-import Logo from "../assets/logo.jpg";
+import Logo from "../../assets/logo.jpg";
 
 type ChatMessage =
   | { from: "user" | "crisp"; text: string }
@@ -22,6 +23,7 @@ export default function LiveChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     { from: "crisp", text: "How can we help with Crisp?" },
   ]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [input, setInput] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
@@ -33,10 +35,21 @@ export default function LiveChat() {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const emojiPickerRef = useRef<HTMLDivElement | null>(null);
   const [showEmoji, setShowEmoji] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (!open) {
+      const newUnread = messages.filter((msg) => msg.from === "crisp").length;
+      setUnreadCount(newUnread);
+    } else {
+      setUnreadCount(0); // reset saat dibuka
+    }
+  }, [messages, open]);
 
   const handleSend = () => {
     if (!input.trim()) return;
     setMessages((prev) => [...prev, { from: "user", text: input }]);
+    audioRef.current?.play().catch((err) => console.error(err));
     setInput("");
   };
 
@@ -147,9 +160,15 @@ export default function LiveChat() {
       {/* Tombol utama */}
       <button
         onClick={() => setOpen(!open)}
-        className="bg-[#007bff] text-white p-4 rounded-full shadow-xl hover:bg-blue-600 transition-all duration-300 focus:outline-none"
+        className="relative bg-[#007bff] text-white p-4 rounded-full shadow-xl hover:bg-blue-600 transition-all duration-300 focus:outline-none"
       >
         {open ? <X size={24} /> : <MessageCircle size={24} />}
+
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+            {unreadCount}
+          </span>
+        )}
       </button>
 
       {open && (
@@ -171,7 +190,7 @@ export default function LiveChat() {
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="hover:bg-white/20 p-1 rounded-full"
+              className="hover:bg-white/20 p-1 rounded-full cursor-pointer"
             >
               <X size={16} />
             </button>
@@ -372,6 +391,7 @@ export default function LiveChat() {
           </div>
         </div>
       )}
+      <audio ref={audioRef} src={messageSent} />
     </div>
   );
 }

@@ -37,7 +37,11 @@ function LoginPage() {
       );
       if (response.status === 200) {
         setItem("userdata", response.data);
-        navigate("/admin");
+        if (["ADMIN", "SU"].includes(response.data.level)) {
+          navigate("/admin");
+        } else {
+          navigate("/customer");
+        }
       }
     } catch (error) {
       console.error("Login failed:", error);
