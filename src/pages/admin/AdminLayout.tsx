@@ -9,6 +9,7 @@ import {
   X,
   BoxIcon,
   Database,
+  MessageCircle,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { getItem } from "../../utils/localStroage";
@@ -16,6 +17,7 @@ import { IResponseLoginDto } from "../../types/userdata";
 
 interface AdminLayoutProps {
   children: ReactNode;
+  padding?: boolean;
   activePage: string;
 }
 
@@ -56,10 +58,18 @@ const menuItems = [
     icon: AlertCircle,
     path: "/admin/updates",
   },
+  {
+    id: "chat",
+    label: "Chat",
+    icon: MessageCircle,
+    badge: 3,
+    path: "/admin/chat",
+  },
 ];
 
 export default function AdminLayout({
   children,
+  padding = true,
   activePage,
 }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -105,6 +115,12 @@ export default function AdminLayout({
               >
                 <Icon className="w-5 h-5" />
                 <span>{item.label}</span>
+
+                {item?.badge !== undefined && item?.badge > 0 && (
+                  <span className="ml-auto bg-blue-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                    {item.badge > 99 ? "99+" : item.badge}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -212,7 +228,7 @@ export default function AdminLayout({
         </header>
 
         {/* Page Content */}
-        <main className="p-4 md:p-8">{children}</main>
+        <main className={`${padding ? "p-4 md:p-8" : ""}`}>{children}</main>
       </div>
     </div>
   );

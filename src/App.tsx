@@ -9,6 +9,7 @@ import GroupPage from "./pages/admin/group";
 import DataBasePage from "./pages/admin/database";
 import NotFoundPage from "./pages/admin/NotFoundPages";
 import VpsPage from "./pages/admin/vps";
+import AdminChatPanel from "./pages/admin/adminChat";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/admin/database" element={<DataBasePage />} />
         <Route path="/admin/vps" element={<VpsPage />} />
         <Route path="/admin/updates" element={<UpdateStatusPage />} />
+        <Route path="/admin/chat" element={<AdminChatPanel />} />
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
