@@ -131,6 +131,17 @@ export default function LiveChat() {
     return emojiRegex.test(text.trim());
   };
 
+  useEffect(() => {
+    if (open) {
+      // kasih sedikit delay biar konten sempat render dulu
+      setTimeout(() => {
+        chatRef.current?.scrollTo({
+          top: chatRef.current.scrollHeight,
+          // behavior: "smooth",
+        });
+      }, 0);
+    }
+  }, [open]);
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {/* Tombol utama */}
@@ -142,7 +153,7 @@ export default function LiveChat() {
       </button>
 
       {open && (
-        <div className="absolute bottom-20 right-0 w-[380px] h-[560px] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-gray-200 animate-slide-up">
+        <div className="absolute bottom-20 right-0 w-[400px] h-[560px] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-gray-200 animate-slide-up">
           {/* Header */}
           <div className="bg-[#007bff] text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -213,13 +224,13 @@ export default function LiveChat() {
                       ? "bg-[#007bff] text-white rounded-br-none"
                       : "bg-[#f1f5f9] text-gray-800 rounded-bl-none"
                   }`}
-                  style={{
-                    fontSize:
-                      "text" in msg &&
-                      /^[\p{Emoji}\p{Extended_Pictographic}]+$/u.test(msg.text)
-                        ? "1.25rem"
-                        : undefined,
-                  }}
+                  // style={{
+                  //   fontSize:
+                  //     "text" in msg &&
+                  //     /^[\p{Emoji}\p{Extended_Pictographic}]+$/u.test(msg.text)
+                  //       ? "1.25rem"
+                  //       : undefined,
+                  // }}
                 >
                   {"audio" in msg ? (
                     <audio controls className="w-48">
@@ -234,13 +245,30 @@ export default function LiveChat() {
                     />
                   ) : (
                     <span
-                      className={`block ${
+                      className={`block text-end ${
                         isOnlyEmoji(msg.text) ? "text-3xl leading-tight" : ""
                       }`}
                     >
                       {msg.text}
                     </span>
                   )}
+
+                  {/* Tambahan waktu & tanggal pesan */}
+                  <p
+                    className={`text-[8px] ${
+                      msg.from === "user"
+                        ? "text-white text-right"
+                        : "text-black text-left"
+                    } mt-1 `}
+                  >
+                    {new Date().toLocaleString("id-ID", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
                 </div>
               </div>
             ))}
@@ -291,8 +319,8 @@ export default function LiveChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              placeholder="Compose your message..."
-              className="flex-1 text-sm bg-white border border-gray-300 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#007bff]"
+              placeholder="Apa yang mau kamu tanyakan ?"
+              className="flex-1 text-sm bg-white border placeholder:text-gray-400 border-gray-300 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#007bff]"
             />
 
             {isRecording ? (
