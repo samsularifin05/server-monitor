@@ -8,6 +8,9 @@ import {
   Mic,
   StopCircle,
 } from "lucide-react";
+import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+
+import Logo from "../assets/logo.jpg";
 
 type ChatMessage =
   | { from: "user" | "crisp"; text: string }
@@ -28,6 +31,8 @@ export default function LiveChat() {
   const chatRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const emojiPickerRef = useRef<HTMLDivElement | null>(null);
+  const [showEmoji, setShowEmoji] = useState(false);
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -41,6 +46,19 @@ export default function LiveChat() {
       behavior: "smooth",
     });
   }, [messages]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(e.target as Node)
+      ) {
+        setShowEmoji(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleStartRecording = async () => {
     try {
@@ -103,6 +121,15 @@ export default function LiveChat() {
     const s = (seconds % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
+  const onEmojiClick = (emojiData: EmojiClickData) => {
+    setInput((prev) => prev + emojiData.emoji);
+  };
+
+  const isOnlyEmoji = (text: string) => {
+    const emojiRegex =
+      /^(?:\p{Emoji_Presentation}|\p{Extended_Pictographic})+$/u;
+    return emojiRegex.test(text.trim());
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -120,14 +147,14 @@ export default function LiveChat() {
           <div className="bg-[#007bff] text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <img
-                src="https://i.pravatar.cc/40?img=1"
+                src={Logo}
                 alt="avatar"
                 className="w-10 h-10 rounded-full border-2 border-white"
               />
               <div>
-                <p className="font-semibold text-sm">Crisp</p>
+                <p className="font-semibold text-sm">Nagatech Live Chat</p>
                 <p className="text-xs opacity-90">
-                  How can we help with Crisp?
+                  Bagaimana kami dapat membantu Anda?
                 </p>
               </div>
             </div>
@@ -140,7 +167,7 @@ export default function LiveChat() {
           </div>
 
           {/* Info tim */}
-          <div className="bg-[#f3f6fb] px-4 py-3 border-b">
+          <div className="bg-[#f3f6fb] px-4 py-3 border-b border-blue-100">
             <div className="flex items-center space-x-2">
               <div className="flex -space-x-2">
                 <img
@@ -158,11 +185,11 @@ export default function LiveChat() {
               </div>
               <div>
                 <p className="text-xs font-medium text-gray-800">
-                  Questions? Chat with us!
+                  Ada pertanyaan? Chat dengan tim kami!
                 </p>
-                <p className="text-[11px] text-gray-500">
-                  <span className="text-green-500">●</span> Typically replies
-                  under an hour
+                <p className="text-[8px] text-gray-500">
+                  <span className="text-green-500">●</span> Biasanya membalas
+                  dalam waktu kurang dari satu 5 menit
                 </p>
               </div>
             </div>
@@ -206,7 +233,13 @@ export default function LiveChat() {
                       onClick={() => setPreviewImage(msg.image)}
                     />
                   ) : (
-                    msg.text
+                    <span
+                      className={`block ${
+                        isOnlyEmoji(msg.text) ? "text-3xl leading-tight" : ""
+                      }`}
+                    >
+                      {msg.text}
+                    </span>
                   )}
                 </div>
               </div>
@@ -214,10 +247,29 @@ export default function LiveChat() {
           </div>
 
           {/* Input area */}
-          <div className="border-t bg-[#f9fafc] px-3 py-2 flex items-center gap-2">
-            <button className="text-gray-500 hover:text-blue-600">
+          <div className="border-t bg-[#f9fafc] px-3 py-2 flex items-center gap-2 border-blue-100">
+            {/* <button className="text-gray-500 hover:text-blue-600">
               <Smile size={18} />
-            </button>
+            </button> */}
+
+            <div ref={emojiPickerRef} className="relative">
+              <button
+                onClick={() => setShowEmoji((prev) => !prev)}
+                className="text-gray-500 hover:text-blue-600 flex items-center justify-center w-8 h-8"
+              >
+                <Smile size={18} />
+              </button>
+              {showEmoji && (
+                <div className="absolute bottom-12 left-0 z-50">
+                  <EmojiPicker
+                    onEmojiClick={onEmojiClick}
+                    width={300}
+                    height={350}
+                    lazyLoadEmojis
+                  />
+                </div>
+              )}
+            </div>
 
             <button
               className="text-gray-500 hover:text-blue-600"
