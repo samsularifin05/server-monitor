@@ -1,5 +1,5 @@
 export interface IcustomerResponseDTO {
-  id: number;
+  _id: string;
   user_id: string;
   nama_customer: string;
   email: string;

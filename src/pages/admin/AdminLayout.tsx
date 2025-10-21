@@ -35,10 +35,10 @@ const menuItems = [
     path: "/admin/group",
   },
   {
-    id: "client",
+    id: "customers",
     label: "Data Client",
     icon: Users,
-    path: "/admin/client",
+    path: "/admin/customers",
   },
   {
     id: "database",

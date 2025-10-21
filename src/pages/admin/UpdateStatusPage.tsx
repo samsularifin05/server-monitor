@@ -24,7 +24,7 @@ export default function UpdateStatusPage() {
 
   return (
     <AdminLayout activePage="updates">
-      <div className="max-w-3xl">
+      <div className="flex flex-row gap-6">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
           <div className="flex items-start gap-4 mb-6">
             <div className="p-3 bg-yellow-100 rounded-lg">
@@ -183,7 +183,7 @@ export default function UpdateStatusPage() {
         </div>
 
         {/* Example Preview */}
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <div className="bg-blue-50 border h-52 border-blue-200 rounded-xl p-6">
           <h3 className="font-semibold text-blue-900 mb-2">
             Contoh Penggunaan:
           </h3>

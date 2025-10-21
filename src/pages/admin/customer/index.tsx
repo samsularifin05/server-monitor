@@ -1,66 +1,13 @@
-import { Edit2, Trash2, UserIcon } from "lucide-react";
 import AdminLayout from "../AdminLayout";
-import { DataTable } from "../../../components";
-import { Column } from "../../../components/table";
-import { dataCustomers } from "./data";
 import { GlobalModal } from "../../../components";
-import { useModal } from "../../../store/useModal";
 import { withAuth } from "../../../middleware/checkLogin";
-import { IcustomerResponseDTO } from "./types/response.dto";
 import CustomerForm from "./form";
+import TableDataCustomer from "./table";
 
 function CustomersPage() {
-  const { openModal } = useModal();
-  const columns: Column<IcustomerResponseDTO>[] = [
-    {
-      key: "nama_customer",
-      header: "Nama Customer",
-      render: (v) => (
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <UserIcon className="w-5 h-5 text-blue-600" />
-          </div>
-          <span className="text-sm font-medium text-gray-800">{v}</span>
-        </div>
-      ),
-    },
-    { key: "email", header: "Email" },
-    {
-      key: "jumlah_toko",
-      header: "Jumlah Toko",
-      render: (v) => `${v} toko`,
-    },
-    { key: "created_at", header: "Tanggal Dibuat" },
-    {
-      key: "id",
-      header: "Aksi",
-      render: () => (
-        <div className="flex gap-2">
-          <button className="p-2 text-blue-600 transition-colors rounded-lg hover:bg-blue-50">
-            <Edit2 className="w-4 h-4" />
-          </button>
-          <button className="p-2 text-red-600 transition-colors rounded-lg hover:bg-red-50">
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
-      ),
-    },
-  ];
-
   return (
     <AdminLayout activePage="customers">
-      <div className="space-y-6">
-        <DataTable
-          data={dataCustomers}
-          columns={columns}
-          addButton={{
-            label: "Tambah Customer",
-            onClick: () => openModal("addCustomer"),
-            show: true,
-          }}
-          searchPlaceholder="Cari customer..."
-        />
-      </div>
+      <TableDataCustomer />
       <GlobalModal title="Tambah Customer" size="lg">
         <CustomerForm />
       </GlobalModal>
