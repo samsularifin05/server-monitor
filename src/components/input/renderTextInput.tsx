@@ -7,7 +7,7 @@ interface RenderTextInputProps<TFieldValues extends FieldValues = FieldValues> {
   name: FieldPath<TFieldValues>;
   placeholder?: string;
   label?: string;
-  type?: "text" | "email" | "password" | "number";
+  type?: "text" | "email" | "password" | "number" | "date";
   required?: boolean;
   className?: string; // optional class tambahan
 }
