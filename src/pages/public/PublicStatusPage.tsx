@@ -120,11 +120,11 @@ export default function PublicStatusPage() {
     downCount > 0 ? "down" : gangguanCount > 0 ? "gangguan" : "normal";
 
   return (
-    <div className="min-h-screen from-blue-50 via-white to-gray-100">
+    <div className="min-h-screen from-gold-50 via-white to-gray-100">
       {/* Sticky Header */}
       <header className="sticky top-0 z-30 border-b border-gray-200 shadow-sm backdrop-blur bg-white/80">
         <div className="flex items-center max-w-6xl gap-3 px-4 py-4 mx-auto">
-          <div className="bg-blue-600 p-2.5 rounded-lg shadow">
+          <div className="bg-gold-400 p-2.5 rounded-lg shadow">
             <Server className="w-6 h-6 text-white" />
           </div>
           <div>
@@ -227,7 +227,7 @@ export default function PublicStatusPage() {
 
           <Link
             to="/login"
-            className="inline-block mt-8 font-medium text-blue-600 transition-colors hover:text-blue-700"
+            className="inline-block mt-8 font-medium text-gold-600 transition-colors hover:text-gold-700"
           >
             Login untuk akses dashboard →
           </Link>

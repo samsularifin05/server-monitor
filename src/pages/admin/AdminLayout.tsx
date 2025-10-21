@@ -89,11 +89,13 @@ export default function AdminLayout({
       <aside className="fixed top-0 left-0 flex-col hidden w-64 h-full bg-white border-r border-gray-200 md:flex">
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-600 rounded-lg">
+            <div className="p-2 bg-gold-400 rounded-lg">
               <Server className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">ServerMonitor</h1>
+              <h1 className="text-xl font-bold text-gray-800">
+                Nagatech Dashboard
+              </h1>
               <p className="text-xs text-gray-500">Admin Panel</p>
             </div>
           </div>
@@ -109,7 +111,7 @@ export default function AdminLayout({
                 to={item.path}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                   isActive
-                    ? "bg-blue-50 text-blue-600 font-medium"
+                    ? "bg-gray-50 text-gold-400 font-medium"
                     : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
@@ -117,7 +119,7 @@ export default function AdminLayout({
                 <span>{item.label}</span>
 
                 {item?.badge !== undefined && item?.badge > 0 && (
-                  <span className="ml-auto bg-blue-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                  <span className="ml-auto bg-gold-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-[20px] text-center">
                     {item.badge > 99 ? "99+" : item.badge}
                   </span>
                 )}
@@ -149,12 +151,12 @@ export default function AdminLayout({
           >
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-600 rounded-lg">
+                <div className="p-2 bg-gold-400 rounded-lg">
                   <Server className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gray-800">
-                    ServerMonitor
+                    Nagatech Dashboard
                   </h1>
                   <p className="text-xs text-gray-500">Admin Panel</p>
                 </div>
@@ -174,7 +176,7 @@ export default function AdminLayout({
                     key={item.id}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                       isActive
-                        ? "bg-blue-50 text-blue-600 font-medium"
+                        ? "bg-gold-50 text-gold-600 font-medium"
                         : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
@@ -220,7 +222,7 @@ export default function AdminLayout({
                 </p>
                 <p className="text-xs text-gray-500">{datausers.level}</p>
               </div>
-              <div className="flex items-center justify-center w-10 h-10 font-medium text-white bg-blue-600 rounded-full">
+              <div className="flex items-center justify-center w-10 h-10 font-medium text-white bg-gold-400 rounded-full">
                 A
               </div>
             </div>

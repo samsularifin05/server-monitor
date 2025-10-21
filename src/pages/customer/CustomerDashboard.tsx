@@ -112,12 +112,12 @@ export default function CustomerDashboard() {
         <div className="px-4 py-4 mx-auto max-w-7xl md:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-600 rounded-lg">
+              <div className="p-2 bg-gold-400 rounded-lg">
                 <Server className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-800">
-                  ServerMonitor
+                  Nagatech Dashboard
                 </h1>
                 <p className="text-xs text-gray-500">Customer Portal</p>
               </div>
@@ -129,7 +129,7 @@ export default function CustomerDashboard() {
                 </p>
                 <p className="text-xs text-gray-500">{customerEmail}</p>
               </div>
-              <div className="flex items-center justify-center w-10 h-10 font-semibold text-white bg-blue-600 rounded-full">
+              <div className="flex items-center justify-center w-10 h-10 font-semibold text-white bg-gold-400 rounded-full">
                 {customerName.charAt(0)}
               </div>
               <button

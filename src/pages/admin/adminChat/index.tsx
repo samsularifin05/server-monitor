@@ -354,7 +354,7 @@ export default function AdminChat() {
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-xl font-bold text-gray-800">Messages</h1>
-              <span className="bg-[#007bff] text-white text-xs px-2 py-1 rounded-full">
+              <span className="bg-gold-400 text-white text-xs px-2 py-1 rounded-full">
                 {totalUnread}
               </span>
             </div>
@@ -370,7 +370,7 @@ export default function AdminChat() {
                 placeholder="Search conversations..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#007bff]"
+                className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold-400"
               />
             </div>
           </div>
@@ -408,7 +408,7 @@ export default function AdminChat() {
                     </p>
                   </div>
                   {conv.unread > 0 && (
-                    <span className="bg-[#007bff] text-white text-xs px-2 py-1 rounded-full">
+                    <span className="bg-gold-400 text-white text-xs px-2 py-1 rounded-full">
                       {conv.unread}
                     </span>
                   )}
@@ -485,7 +485,7 @@ export default function AdminChat() {
                   <div
                     className={`px-4 py-2 rounded-2xl max-w-[70%] ${
                       msg.from === "admin"
-                        ? "bg-[#007bff] text-white rounded-br-none"
+                        ? "bg-gold-400 text-white rounded-br-none"
                         : "bg-white text-gray-800 rounded-bl-none shadow-sm"
                     }`}
                   >
@@ -512,7 +512,7 @@ export default function AdminChat() {
                     <p
                       className={`text-[10px] mt-1 ${
                         msg.from === "admin"
-                          ? "text-blue-100 text-right"
+                          ? "text-white text-right"
                           : "text-gray-400 text-left"
                       }`}
                     >
@@ -532,7 +532,7 @@ export default function AdminChat() {
                 <div ref={emojiPickerRef} className="relative">
                   <button
                     onClick={() => setShowEmoji((prev) => !prev)}
-                    className="text-gray-500 hover:text-blue-600 flex items-center justify-center w-9 h-9"
+                    className="text-gray-500 hover:text-gold-600 flex items-center justify-center w-9 h-9"
                   >
                     <Smile size={20} />
                   </button>
@@ -549,7 +549,7 @@ export default function AdminChat() {
                 </div>
 
                 <button
-                  className="text-gray-500 hover:text-blue-600"
+                  className="text-gray-500 hover:text-gold-600"
                   onClick={handleUploadClick}
                 >
                   <Paperclip size={20} />
@@ -569,7 +569,7 @@ export default function AdminChat() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Type your message..."
-                  className="flex-1 bg-gray-100 border border-gray-200 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#007bff]"
+                  className="flex-1 bg-gray-100 border border-gray-200 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400"
                 />
 
                 {isRecording ? (
@@ -584,7 +584,7 @@ export default function AdminChat() {
                 ) : (
                   <button
                     onClick={handleStartRecording}
-                    className="text-gray-600 hover:text-blue-600"
+                    className="text-gray-600 hover:text-gold-600"
                   >
                     <Mic size={20} />
                   </button>
@@ -592,7 +592,7 @@ export default function AdminChat() {
 
                 <button
                   onClick={handleSend}
-                  className="bg-[#007bff] text-white p-2.5 rounded-full hover:bg-blue-600 transition"
+                  className="bg-gold-400 cursor-pointer text-white p-2.5 rounded-full hover:bg-gold-500 transition"
                 >
                   <Send size={18} />
                 </button>

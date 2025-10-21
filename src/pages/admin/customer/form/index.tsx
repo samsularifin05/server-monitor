@@ -82,7 +82,7 @@ export default function CustomerForm() {
       {/* Tombol Submit */}
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+        className="w-full bg-gold-400 text-white py-2 rounded-md hover:bg-gold-700 transition"
       >
         Simpan
       </button>

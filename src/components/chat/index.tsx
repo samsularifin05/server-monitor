@@ -14,14 +14,14 @@ import messageSent from "./messageSent.mp3";
 import Logo from "../../assets/logo.jpg";
 
 type ChatMessage =
-  | { from: "user" | "crisp"; text: string }
-  | { from: "user" | "crisp"; audio: string }
-  | { from: "user" | "crisp"; image: string };
+  | { from: "user" | "helpdesk"; text: string }
+  | { from: "user" | "helpdesk"; audio: string }
+  | { from: "user" | "helpdesk"; image: string };
 
 export default function LiveChat() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { from: "crisp", text: "How can we help with Crisp?" },
+    { from: "helpdesk", text: "Ada yang bisa saya bantu?" },
   ]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [input, setInput] = useState("");
@@ -39,7 +39,9 @@ export default function LiveChat() {
 
   useEffect(() => {
     if (!open) {
-      const newUnread = messages.filter((msg) => msg.from === "crisp").length;
+      const newUnread = messages.filter(
+        (msg) => msg.from === "helpdesk"
+      ).length;
       setUnreadCount(newUnread);
     } else {
       setUnreadCount(0); // reset saat dibuka
@@ -160,7 +162,7 @@ export default function LiveChat() {
       {/* Tombol utama */}
       <button
         onClick={() => setOpen(!open)}
-        className="relative bg-[#007bff] text-white p-4 rounded-full shadow-xl hover:bg-blue-600 transition-all duration-300 focus:outline-none"
+        className="relative bg-gold-400 text-white p-4 rounded-full shadow-xl hover:bg-gold-400 transition-all duration-300 focus:outline-none"
       >
         {open ? <X size={24} /> : <MessageCircle size={24} />}
 
@@ -174,7 +176,7 @@ export default function LiveChat() {
       {open && (
         <div className="absolute bottom-20 right-0 w-[400px] h-[560px] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-gray-200 animate-slide-up">
           {/* Header */}
-          <div className="bg-[#007bff] text-white px-4 py-3 flex items-center justify-between">
+          <div className="bg-gold-400 text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <img
                 src={Logo}
@@ -197,7 +199,7 @@ export default function LiveChat() {
           </div>
 
           {/* Info tim */}
-          <div className="bg-[#f3f6fb] px-4 py-3 border-b border-blue-100">
+          <div className="bg-[#f3f6fb] px-4 py-3 border-b border-gold-100">
             <div className="flex items-center space-x-2">
               <div className="flex -space-x-2">
                 <img
@@ -240,16 +242,9 @@ export default function LiveChat() {
                 <div
                   className={`px-3 py-2 text-sm rounded-2xl max-w-[75%] ${
                     msg.from === "user"
-                      ? "bg-[#007bff] text-white rounded-br-none"
+                      ? "bg-gold-400 text-white rounded-br-none"
                       : "bg-[#f1f5f9] text-gray-800 rounded-bl-none"
                   }`}
-                  // style={{
-                  //   fontSize:
-                  //     "text" in msg &&
-                  //     /^[\p{Emoji}\p{Extended_Pictographic}]+$/u.test(msg.text)
-                  //       ? "1.25rem"
-                  //       : undefined,
-                  // }}
                 >
                   {"audio" in msg ? (
                     <audio controls className="w-48">
@@ -287,6 +282,8 @@ export default function LiveChat() {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
+
+                    {msg.from !== "user" ? " a/n Yaris" : ""}
                   </p>
                 </div>
               </div>
@@ -294,15 +291,15 @@ export default function LiveChat() {
           </div>
 
           {/* Input area */}
-          <div className="border-t bg-[#f9fafc] px-3 py-2 flex items-center gap-2 border-blue-100">
-            {/* <button className="text-gray-500 hover:text-blue-600">
+          <div className="border-t bg-[#f9fafc] px-3 py-2 flex items-center gap-2 border-gold-100">
+            {/* <button className="text-gray-500 hover:text-gold-600">
               <Smile size={18} />
             </button> */}
 
             <div ref={emojiPickerRef} className="relative">
               <button
                 onClick={() => setShowEmoji((prev) => !prev)}
-                className="text-gray-500 hover:text-blue-600 flex items-center justify-center w-8 h-8"
+                className="text-gray-500 hover:text-gold-600 flex items-center justify-center w-8 h-8"
               >
                 <Smile size={18} />
               </button>
@@ -319,7 +316,7 @@ export default function LiveChat() {
             </div>
 
             <button
-              className="text-gray-500 hover:text-blue-600"
+              className="text-gray-500 hover:text-gold-600"
               onClick={handleUploadClick}
             >
               <Paperclip size={18} />
@@ -339,7 +336,7 @@ export default function LiveChat() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Apa yang mau kamu tanyakan ?"
-              className="flex-1 text-sm bg-white border placeholder:text-gray-400 border-gray-300 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#007bff]"
+              className="flex-1 text-sm bg-white border placeholder:text-gray-400 border-gray-300 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold-400"
             />
 
             {isRecording ? (
@@ -354,7 +351,7 @@ export default function LiveChat() {
             ) : (
               <button
                 onClick={handleStartRecording}
-                className="text-gray-600 hover:text-blue-600"
+                className="text-gray-600 hover:text-gold-600"
               >
                 <Mic size={18} />
               </button>
@@ -362,7 +359,7 @@ export default function LiveChat() {
 
             <button
               onClick={handleSend}
-              className="bg-[#007bff] text-white p-2 rounded-full hover:bg-blue-600"
+              className="bg-gold-400 text-white p-2 rounded-full hover:bg-gold-400"
             >
               <Send size={16} />
             </button>

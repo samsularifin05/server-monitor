@@ -268,7 +268,7 @@ export default function DataTable<T extends Record<string, any>>({
                   onClick={() => setPage(Number(num))}
                   className={`px-3 py-1.5 rounded-lg border cursor-pointer ${
                     page === num
-                      ? "bg-blue-600 text-white border-blue-600"
+                      ? "bg-gold-400 text-white border-gold-600"
                       : "border-gray-300 hover:bg-gray-100"
                   }`}
                 >

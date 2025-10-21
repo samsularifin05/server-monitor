@@ -17,13 +17,20 @@ function LoginPage() {
   const { handleSubmit, control } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      user_id: "engineer",
-      password: "developer-b3r4sm3r4h",
+      user_id: "",
+      password: "",
     },
   });
 
+  // engineer
+  // developer-b3r4sm3r4h
+
   const onSubmit = async (data: LoginFormValues) => {
     try {
+      if (data.user_id.trim() === "demo" || data.password.trim() === "demo") {
+        navigate("/customer");
+        return;
+      }
       const response = await toast.promise(
         apiInstance.post<IResponseLoginDto>("/auth/login", {
           user_id: data.user_id,
@@ -32,7 +39,6 @@ function LoginPage() {
         {
           loading: "Logging in...",
           success: <b>Login berhasil!</b>,
-          error: <b>Login gagal.</b>,
         }
       );
       if (response.status === 200) {
@@ -45,18 +51,23 @@ function LoginPage() {
       }
     } catch (error) {
       console.error("Login failed:", error);
-      alert("Login gagal. Silakan periksa kembali kredensial Anda.");
+      toast.error(
+        `${error || "Login gagal. Silakan periksa kembali kredensial Anda."}`
+      );
+      // alert("Login gagal. Silakan periksa kembali kredensial Anda.");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 from-blue-50 to-blue-100">
+    <div className="flex items-center justify-center min-h-screen p-4 from-gold-50 to-gold-100">
       <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl">
         <div className="flex flex-col items-center mb-8">
-          <div className="p-3 mb-4 bg-blue-600 rounded-xl">
+          <div className="p-3 mb-4 bg-gold-400 rounded-xl">
             <Server className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800">ServerMonitor</h1>
+          <h1 className="text-3xl font-bold text-gray-800">
+            Nagatech Dashboard
+          </h1>
           <p className="mt-2 text-gray-500">Pantau status server Anda</p>
         </div>
 
@@ -81,7 +92,7 @@ function LoginPage() {
 
           <button
             type="submit"
-            className="flex items-center justify-center w-full gap-2 py-3 font-medium text-white transition-colors bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700"
+            className="flex items-center justify-center w-full gap-2 py-3 font-medium text-white transition-colors bg-gold-400 rounded-lg cursor-pointer hover:bg-gold-500"
           >
             <LogIn className="w-5 h-5" />
             Masuk
@@ -89,13 +100,27 @@ function LoginPage() {
         </form>
 
         <div className="mt-6 text-center">
+          <p className="text-sm text-gray-500">Akun Demo</p>
+          <br />
+          <p className="text-sm text-gray-500">
+            Login Customer <br />
+            User ID: demo | Password: demo
+          </p>
+          <br />
+          <p className="text-sm text-gray-500">
+            Login Admin <br />
+            User ID: engineer | Password: developer-b3r4sm3r4h
+          </p>
+        </div>
+
+        {/* <div className="mt-6 text-center">
           <a
             href="/status"
-            className="text-sm font-medium text-blue-600 hover:text-blue-700"
+            className="text-sm font-medium text-gold-600 hover:text-gold-700"
           >
             Lihat Status Server Publik →
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

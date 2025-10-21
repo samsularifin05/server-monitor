@@ -53,7 +53,7 @@ export default function UpdateStatusPage() {
                 id="server"
                 value={selectedServer}
                 onChange={(e) => setSelectedServer(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent outline-none transition-all"
                 required
               >
                 <option value="">-- Pilih Server --</option>
@@ -77,7 +77,7 @@ export default function UpdateStatusPage() {
                 id="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent outline-none transition-all"
                 required
               />
             </div>
@@ -158,7 +158,7 @@ export default function UpdateStatusPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={5}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent outline-none transition-all resize-none"
                 placeholder="Jelaskan kondisi server dan informasi yang perlu diketahui customer..."
                 required
               ></textarea>
@@ -167,7 +167,7 @@ export default function UpdateStatusPage() {
             <div className="flex gap-3 pt-4">
               <button
                 type="submit"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-gold-400 hover:bg-gold-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 <Save className="w-5 h-5" />
                 Simpan Update
@@ -183,11 +183,11 @@ export default function UpdateStatusPage() {
         </div>
 
         {/* Example Preview */}
-        <div className="bg-blue-50 border h-52 border-blue-200 rounded-xl p-6">
-          <h3 className="font-semibold text-blue-900 mb-2">
+        <div className="bg-gold-50 border h-52 border-gold-200 rounded-xl p-6">
+          <h3 className="font-semibold text-gold-900 mb-2">
             Contoh Penggunaan:
           </h3>
-          <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+          <ol className="text-sm text-gold-800 space-y-1 list-decimal list-inside">
             <li>Pilih server yang ingin diupdate (misalnya: Alibaba Cloud)</li>
             <li>Masukkan tanggal update (misalnya: 20-10-2025)</li>
             <li>Pilih status: Normal / Gangguan / Down</li>
