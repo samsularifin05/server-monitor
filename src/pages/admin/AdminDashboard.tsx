@@ -5,7 +5,7 @@ import { withAuth } from "../../middleware/checkLogin";
 
 function AdminDashboard() {
   const stats = [
-    { label: "Total Server", value: "12", icon: Server, color: "bg-blue-500" },
+    { label: "Total Server", value: "12", icon: Server, color: "bg-gold-500" },
     {
       label: "Total Customer",
       value: "48",

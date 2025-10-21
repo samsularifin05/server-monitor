@@ -382,7 +382,7 @@ export default function AdminChat() {
                 key={conv.id}
                 onClick={() => setSelectedConv(conv)}
                 className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition ${
-                  selectedConv?.id === conv.id ? "bg-blue-50" : ""
+                  selectedConv?.id === conv.id ? "bg-gold-50" : ""
                 }`}
               >
                 <div className="flex items-start gap-3">
