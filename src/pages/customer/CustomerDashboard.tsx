@@ -8,12 +8,14 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import LiveChat from "../../components/chat";
+import StoresTable from "./table";
+import { StoreType } from "./types";
 
 export default function CustomerDashboard() {
   const customerName = "PT Teknologi Maju";
   const customerEmail = "info@tekmaju.com";
 
-  const stores = [
+  const stores: StoreType[] = [
     {
       id: 1,
       name: "Toko Cabang Jakarta Pusat",
@@ -60,46 +62,6 @@ export default function CustomerDashboard() {
       time: "15 menit lalu",
     },
   ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "normal":
-        return "bg-green-100 text-green-700";
-      case "gangguan":
-        return "bg-yellow-100 text-yellow-700";
-      case "down":
-        return "bg-red-100 text-red-700";
-      default:
-        return "bg-gray-100 text-gray-700";
-    }
-  };
-
-  const getStatusDot = (status: string) => {
-    switch (status) {
-      case "normal":
-        return "bg-green-500";
-      case "gangguan":
-        return "bg-yellow-500";
-      case "down":
-        return "bg-red-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const getStatusLabel = (status: string) => {
-    switch (status) {
-      case "normal":
-        return "Normal";
-      case "gangguan":
-        return "Gangguan";
-      case "down":
-        return "Down";
-      default:
-        return "Unknown";
-    }
-  };
-
   const normalStores = stores.filter((s) => s.status === "normal").length;
   const problemStores = stores.filter((s) => s.status !== "normal").length;
 
@@ -217,73 +179,7 @@ export default function CustomerDashboard() {
           </div>
         )}
 
-        {/* Stores Table */}
-        <div className="bg-white border border-gray-200 shadow-sm rounded-xl">
-          <div className="p-6 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800">
-              Daftar Toko Anda
-            </h3>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">
-                    Nama Toko
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">
-                    Server
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">
-                    Update Terakhir
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {stores.map((store) => (
-                  <tr
-                    key={store.id}
-                    className="transition-colors hover:bg-gray-50"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-purple-100 rounded-lg">
-                          <Store className="w-5 h-5 text-purple-600" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-800">
-                          {store.name}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">
-                      {store.server}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                          store.status
-                        )}`}
-                      >
-                        <span
-                          className={`w-2 h-2 rounded-full ${getStatusDot(
-                            store.status
-                          )}`}
-                        ></span>
-                        {getStatusLabel(store.status)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">
-                      {store.lastUpdate}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <StoresTable stores={stores} />
 
         {/* Live Chat Floating */}
         <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 50 }}>

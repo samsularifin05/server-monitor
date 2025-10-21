@@ -173,7 +173,7 @@ export default function LiveChat() {
       {isMobile && open ? null : (
         <button
           onClick={() => setOpen(!open)}
-          className="relative bg-gold-400 text-white p-4 rounded-full shadow-xl hover:bg-gold-400 transition-all duration-300 focus:outline-none"
+          className="relative bg-gold-400 cursor-pointer text-white p-4 rounded-full shadow-xl hover:bg-gold-400 transition-all duration-300 focus:outline-none"
         >
           {open ? <X size={24} /> : <MessageCircle size={24} />}
 
