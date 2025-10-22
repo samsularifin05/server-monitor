@@ -11,12 +11,14 @@ function WrapperGropup() {
   return (
     <AdminLayout activePage="program">
       <ListProgram />
-      <GlobalModal
-        title={modalType === "Add" ? "Tambah Program" : "Edit Program"}
-        size="lg"
-      >
-        <ProgramForm />
-      </GlobalModal>
+      {modalType === "Add" && (
+        <GlobalModal
+          title={modalType === "Add" ? "Tambah Program" : "Edit Program"}
+          size="lg"
+        >
+          <ProgramForm />
+        </GlobalModal>
+      )}
     </AdminLayout>
   );
 }
