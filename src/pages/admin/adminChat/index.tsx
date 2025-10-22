@@ -17,130 +17,13 @@ import {
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import messageSent from "./../../../components/chat/messageSent.mp3";
 import AdminLayout from "../AdminLayout";
-
-type ChatMessage =
-  | { from: "user" | "admin"; text: string; time: Date }
-  | { from: "user" | "admin"; audio: string; time: Date }
-  | { from: "user" | "admin"; image: string; time: Date };
-
-type Conversation = {
-  id: string;
-  name: string;
-  avatar: string;
-  lastMessage: string;
-  time: string;
-  unread: number;
-  online: boolean;
-  messages: ChatMessage[];
-};
+import { dataChat } from "./dataChat";
+import { ChatMessage, Conversation } from "./types";
 
 export default function AdminChat() {
-  const [conversations, setConversations] = useState<Conversation[]>([
-    {
-      id: "1",
-      name: "Toko Mas Laris",
-      avatar: "https://i.pravatar.cc/40?img=2",
-      lastMessage: "Servernya kenapa ya? Sistem tidak bisa login.",
-      time: "5m ago",
-      unread: 3,
-      online: true,
-      messages: [
-        {
-          from: "user",
-          text: "Halo admin, servernya kenapa ya? Sistem tidak bisa login.",
-          time: new Date(),
-        },
-        {
-          from: "admin",
-          text: "Halo Toko Mas Laris, sedang kami cek ya, mohon tunggu sebentar.",
-          time: new Date(),
-        },
-        {
-          from: "user",
-          text: "Baik, tolong segera ya, kasir tidak bisa input transaksi.",
-          time: new Date(),
-        },
-      ],
-    },
-    {
-      id: "2",
-      name: "Toko Mas Suryajaya",
-      avatar: "https://i.pravatar.cc/40?img=4",
-      lastMessage: "Database error, stok tidak muncul.",
-      time: "20m ago",
-      unread: 1,
-      online: false,
-      messages: [
-        {
-          from: "user",
-          text: "Selamat siang, database error. Stok tidak muncul di aplikasi.",
-          time: new Date(),
-        },
-        {
-          from: "admin",
-          text: "Terima kasih laporannya. Kami sedang restart database server.",
-          time: new Date(),
-        },
-        {
-          from: "user",
-          text: "Baik, mohon kabarnya setelah normal kembali ya.",
-          time: new Date(),
-        },
-      ],
-    },
-    {
-      id: "3",
-      name: "Toko Mas Italy Bandung",
-      avatar: "https://i.pravatar.cc/40?img=8",
-      lastMessage: "Aplikasinya tidak bisa dibuka sama sekali.",
-      time: "1h ago",
-      unread: 2,
-      online: true,
-      messages: [
-        {
-          from: "user",
-          text: "Selamat pagi, aplikasinya tidak bisa dibuka sama sekali.",
-          time: new Date(),
-        },
-        {
-          from: "admin",
-          text: "Apakah muncul pesan error tertentu saat dibuka?",
-          time: new Date(),
-        },
-        {
-          from: "user",
-          text: "Tidak muncul pesan apa-apa, langsung force close.",
-          time: new Date(),
-        },
-      ],
-    },
-    {
-      id: "4",
-      name: "Toko Mas Suryajaya 2",
-      avatar: "https://i.pravatar.cc/40?img=9",
-      lastMessage: "Sudah bisa login lagi, terima kasih.",
-      time: "3h ago",
-      unread: 0,
-      online: false,
-      messages: [
-        {
-          from: "user",
-          text: "Barusan server down, semua cabang tidak bisa login.",
-          time: new Date(),
-        },
-        {
-          from: "admin",
-          text: "Sudah kami perbaiki, silakan coba login ulang.",
-          time: new Date(),
-        },
-        {
-          from: "user",
-          text: "Sudah bisa login lagi, terima kasih.",
-          time: new Date(),
-        },
-      ],
-    },
-  ]);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showSidebarMobile, setShowSidebarMobile] = useState(true);
+  const [conversations, setConversations] = useState<Conversation[]>(dataChat);
 
   const [selectedConv, setSelectedConv] = useState<Conversation | null>(
     conversations[0]
@@ -347,10 +230,13 @@ export default function AdminChat() {
 
   return (
     <AdminLayout activePage="chat" padding={false}>
-      <div className="flex h-[91vh] bg-gray-50">
+      <div className="flex h-[91vh] bg-gray-50 flex-col md:flex-row ">
         {/* Sidebar - Daftar Percakapan */}
-        <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
-          {/* Header Sidebar */}
+        {/* Sidebar - Daftar Percakapan */}
+        <div
+          className={`w-full md:w-80 lg:mt-0 mt-20 bg-white border-r border-gray-200 flex flex-col  fixed z-30 top-0 left-0 h-screen md:h-auto md:relative transition-all duration-300 overflow-y-auto
+            ${showSidebarMobile ? "block" : "hidden"} md:block`}
+        >
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-xl font-bold text-gray-800">Messages</h1>
@@ -376,11 +262,14 @@ export default function AdminChat() {
           </div>
 
           {/* Daftar Percakapan */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto ">
             {filteredConversations.map((conv) => (
               <div
                 key={conv.id}
-                onClick={() => setSelectedConv(conv)}
+                onClick={() => {
+                  setSelectedConv(conv);
+                  if (window.innerWidth < 768) setShowSidebarMobile(false);
+                }}
                 className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition ${
                   selectedConv?.id === conv.id ? "bg-gold-50" : ""
                 }`}
@@ -419,10 +308,11 @@ export default function AdminChat() {
         </div>
 
         {/* Area Chat */}
-        {selectedConv ? (
-          <div className="flex-1 flex flex-col">
+        {/* Area Chat */}
+        {selectedConv && (!showSidebarMobile || window.innerWidth >= 768) ? (
+          <div className="flex-1 flex flex-col w-full">
             {/* Header Chat */}
-            <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+            <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between relative">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <img
@@ -434,10 +324,10 @@ export default function AdminChat() {
                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
                   )}
                 </div>
-                <div>
-                  <h2 className="font-semibold text-gray-800">
+                <div className="flex flex-col">
+                  <span className="font-semibold text-gray-800 text-base">
                     {selectedConv.name}
-                  </h2>
+                  </span>
                   <p className="text-xs text-gray-500">
                     {selectedConv.online ? "Online" : "Offline"}
                   </p>
@@ -445,20 +335,38 @@ export default function AdminChat() {
               </div>
 
               <div className="flex items-center gap-2">
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
-                  <Phone size={20} className="text-gray-600" />
+                {/* Tombol kembali di mobile */}
+                <button
+                  className="md:hidden p-2 mr-2 rounded-full hover:bg-gray-100"
+                  onClick={() => setShowSidebarMobile(true)}
+                >
+                  <X size={20} />
                 </button>
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
-                  <Video size={20} className="text-gray-600" />
-                </button>
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
-                  <Archive size={20} className="text-gray-600" />
-                </button>
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
-                  <Trash2 size={20} className="text-gray-600" />
-                </button>
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
+                <button
+                  className="p-2 hover:bg-gray-100 rounded-full transition relative"
+                  onClick={() => setShowMenu((v) => !v)}
+                >
                   <MoreVertical size={20} className="text-gray-600" />
+                  {showMenu && (
+                    <div className="absolute right-0 top-10 bg-white border border-gray-200 rounded-lg shadow-lg py-2 w-40 z-50">
+                      <button className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 gap-2">
+                        <Phone size={18} />
+                        <span>Telepon</span>
+                      </button>
+                      <button className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 gap-2">
+                        <Video size={18} />
+                        <span>Video Call</span>
+                      </button>
+                      <button className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 gap-2">
+                        <Archive size={18} />
+                        <span>Arsipkan</span>
+                      </button>
+                      <button className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 gap-2">
+                        <Trash2 size={18} />
+                        <span>Hapus</span>
+                      </button>
+                    </div>
+                  )}
                 </button>
               </div>
             </div>
@@ -466,7 +374,7 @@ export default function AdminChat() {
             {/* Area Pesan */}
             <div
               ref={chatRef}
-              className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50"
+              className="flex-1 overflow-y-auto p-2 md:p-6 space-y-4 bg-gray-50"
             >
               {selectedConv.messages.map((msg, i) => (
                 <div
@@ -527,8 +435,8 @@ export default function AdminChat() {
             </div>
 
             {/* Input Area */}
-            <div className="bg-white border-t border-gray-200 px-6 py-4">
-              <div className="flex items-center gap-2">
+            <div className="bg-white border-t border-gray-200 px-2 md:px-6 py-2 md:py-4">
+              <div className="flex items-center gap-1 md:gap-2">
                 <div ref={emojiPickerRef} className="relative">
                   <button
                     onClick={() => setShowEmoji((prev) => !prev)}
@@ -569,7 +477,7 @@ export default function AdminChat() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Type your message..."
-                  className="flex-1 bg-gray-100 border border-gray-200 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400"
+                  className="flex-1 bg-gray-100 border border-gray-200 rounded-full px-2 md:px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400"
                 />
 
                 {isRecording ? (
@@ -600,7 +508,7 @@ export default function AdminChat() {
             </div>
           </div>
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="flex-1 lg:flex hidden items-center justify-center bg-gray-50 w-full">
             <div className="text-center">
               <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
                 <User size={40} className="text-gray-400" />
