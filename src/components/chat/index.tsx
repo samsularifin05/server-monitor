@@ -79,7 +79,24 @@ export default function LiveChat() {
 
   const handleStartRecording = async () => {
     try {
+      if (typeof MediaRecorder === "undefined") {
+        alert("Perekaman suara belum didukung di browser ini.");
+        return;
+      }
+
+      // ✅ Cek izin mikrofon
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (!stream) {
+        alert("Tidak dapat mengakses mikrofon.");
+        return;
+      }
+
+      // ✅ Tentukan tipe MIME yang didukung
+      let mimeType = "audio/webm";
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = "audio/mp4";
+      }
+
       const mediaRecorder = new MediaRecorder(stream);
       setRecorder(mediaRecorder);
       chunks.current = [];
@@ -102,6 +119,7 @@ export default function LiveChat() {
       };
     } catch (err) {
       console.error("Mic access denied:", err);
+      alert("Izin mikrofon ditolak.");
     }
   };
 
@@ -159,6 +177,45 @@ export default function LiveChat() {
       }, 0);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const handleResize = () => {
+      const chatContainer = document.querySelector(
+        "#chat-input-container"
+      ) as HTMLElement;
+      if (!chatContainer) return;
+
+      // Ketika keyboard muncul, viewport height berkurang
+      const visualViewport = window.visualViewport;
+      if (visualViewport) {
+        chatContainer.style.bottom = `${
+          window.innerHeight - visualViewport.height
+        }px`;
+      }
+    };
+
+    const resetPosition = () => {
+      const chatContainer = document.querySelector(
+        "#chat-input-container"
+      ) as HTMLElement;
+      if (chatContainer) {
+        chatContainer.style.bottom = "0px";
+      }
+    };
+
+    window.visualViewport?.addEventListener("resize", handleResize);
+    window.visualViewport?.addEventListener("scroll", handleResize);
+    window.visualViewport?.addEventListener("focusout", resetPosition);
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", handleResize);
+      window.visualViewport?.removeEventListener("scroll", handleResize);
+      window.visualViewport?.removeEventListener("focusout", resetPosition);
+    };
+  }, [isMobile]);
+
   return (
     <div
       className={
@@ -317,20 +374,19 @@ export default function LiveChat() {
           </div>
 
           {/* Input area */}
-          <div className="border-t bg-[#f9fafc] px-3 py-2 flex items-center gap-2 border-gold-100">
-            {/* <button className="text-gray-500 hover:text-gold-600">
-              <Smile size={18} />
-            </button> */}
-
+          <div
+            id="chat-input-container"
+            className="border-t bg-[#f9fafc] px-3 py-2 flex items-center gap-2 border-gold-100 fixed bottom-0 left-0 w-full md:static"
+          >
             <div ref={emojiPickerRef} className="relative">
               <button
                 onClick={() => setShowEmoji((prev) => !prev)}
-                className="text-gray-500 hover:text-gold-600 flex items-center justify-center w-8 h-8"
+                className="text-gray-500 cursor-pointer hover:text-gold-600 flex items-center justify-center w-8 h-8"
               >
                 <Smile size={18} />
               </button>
               {showEmoji && (
-                <div className="absolute bottom-12 left-0 z-50">
+                <div className="absolute bottom-12 left-0 z-50 cursor-pointer">
                   <EmojiPicker
                     onEmojiClick={onEmojiClick}
                     width={300}
@@ -342,7 +398,7 @@ export default function LiveChat() {
             </div>
 
             <button
-              className="text-gray-500 hover:text-gold-600"
+              className="text-gray-500 hover:text-gold-600 cursor-pointer"
               onClick={handleUploadClick}
             >
               <Paperclip size={18} />
@@ -366,7 +422,10 @@ export default function LiveChat() {
             />
 
             {isRecording ? (
-              <div className="flex items-center gap-1 bg-red-500 text-white px-3 py-2 rounded-full animate-pulse">
+              <div
+                onClick={handleStopRecording}
+                className="flex cursor-pointer items-center gap-1 bg-red-500 text-white px-3 py-2 rounded-full animate-pulse"
+              >
                 <StopCircle
                   size={18}
                   onClick={handleStopRecording}
@@ -377,7 +436,7 @@ export default function LiveChat() {
             ) : (
               <button
                 onClick={handleStartRecording}
-                className="text-gray-600 hover:text-gold-600"
+                className="text-gray-600 hover:text-gold-600 cursor-pointer"
               >
                 <Mic size={18} />
               </button>
@@ -385,7 +444,7 @@ export default function LiveChat() {
 
             <button
               onClick={handleSend}
-              className="bg-gold-400 text-white p-2 rounded-full hover:bg-gold-400"
+              className="bg-gold-400 text-white p-2 cursor-pointer rounded-full hover:bg-gold-400"
             >
               <Send size={16} />
             </button>
