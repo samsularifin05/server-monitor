@@ -8,8 +8,8 @@ import {
   Menu,
   X,
   BoxIcon,
-  Database,
   MessageCircle,
+  Store,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { getItem } from "../../utils/localStroage";
@@ -35,23 +35,29 @@ const menuItems = [
     path: "/admin/group",
   },
   {
-    id: "customers",
-    label: "Data Client",
+    id: "users",
+    label: "Data Users",
     icon: Users,
-    path: "/admin/customers",
+    path: "/admin/data-users",
   },
   {
-    id: "database",
-    label: "Database",
-    icon: Database,
-    path: "/admin/database",
+    id: "client",
+    label: "Data Client",
+    icon: Store,
+    path: "/admin/client",
   },
-  {
-    id: "vps",
-    label: "Virtual Private Server",
-    icon: Server,
-    path: "/admin/vps",
-  },
+  // {
+  //   id: "database",
+  //   label: "Database",
+  //   icon: Database,
+  //   path: "/admin/database",
+  // },
+  // {
+  //   id: "vps",
+  //   label: "Virtual Private Server",
+  //   icon: Server,
+  //   path: "/admin/vps",
+  // },
   {
     id: "updates",
     label: "Update Gangguan",

@@ -105,8 +105,13 @@ class ApiInstance {
   /** ----------------
    *  HTTP METHODS
    *  ---------------- */
-  public async get<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>(() => this.axios.get<ApiResponse<T>>(endpoint));
+  public async get<T>(
+    endpoint: string,
+    params?: Record<string, any>
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(() =>
+      this.axios.get<ApiResponse<T>>(endpoint, { params })
+    );
   }
 
   public async post<T>(

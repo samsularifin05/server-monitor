@@ -17,14 +17,15 @@ const deleteId = async (id: string): Promise<void> => {
   try {
     await apiInstance.delete(`/groups/${id}`);
   } catch (error) {
-    console.error("Error deleting group:", error);
+    // console.error("Error deleting group:", error);
+    throw error;
   }
 };
 const create = async (data: IgroupRequestDTO): Promise<void> => {
   try {
     await apiInstance.post(`/groups`, data);
   } catch (error) {
-    console.error("Error creating group:", error);
+    throw error;
   }
 };
 
@@ -32,7 +33,7 @@ const edit = async (data: IgroupRequestDTO): Promise<void> => {
   try {
     await apiInstance.put(`/groups/${data._id}`, data);
   } catch (error) {
-    console.error("Error updating group:", error);
+    throw error;
   }
 };
 

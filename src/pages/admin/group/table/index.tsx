@@ -5,12 +5,14 @@ import { useDelete, useGroup } from "../service";
 import { IGroupResponseDTO } from "../types/response.dto";
 import { ActionButton } from "../../../../components/table/types";
 import toast from "react-hot-toast";
+import { useConfirmStore } from "../../../../store/useConfirmStore";
 
 const TableGroup = () => {
   const { openModal } = useModal();
 
   const { data, isLoading } = useGroup();
   const deleteGroup = useDelete();
+  const { openConfirm } = useConfirmStore();
 
   const columns: Column<IGroupResponseDTO>[] = [
     {
@@ -22,23 +24,24 @@ const TableGroup = () => {
   ];
 
   const handleDelete = async (groupId: string) => {
-    try {
-      toast.promise(deleteGroup.mutateAsync(groupId), {
-        loading: "Deleting...",
-        success: <b>Delete Group Berhasil!</b>,
-        error: <b>Gagal Delete Group.</b>,
-      });
-    } catch (error) {
-      toast.error("Gagal menghapus Group");
-    }
+    openConfirm("Apakah kamu yakin ingin menghapus user ini?", async () => {
+      try {
+        toast.promise(deleteGroup.mutateAsync(groupId), {
+          loading: "Deleting...",
+          success: <b>Delete Group Berhasil!</b>,
+          error: <b>Gagal Delete Group.</b>,
+        });
+      } catch (error) {
+        toast.error("Gagal menghapus Group");
+      }
+    });
   };
 
   const actions: ActionButton<IGroupResponseDTO>[] = [
     {
       icon: <Edit className="h-4 w-4" />,
       onClick: (row) => {
-        console.log("Edit row:", row);
-        openModal("EditGroup", row);
+        openModal("Edit", row);
       },
       variant: "default",
     },
@@ -49,7 +52,7 @@ const TableGroup = () => {
     },
     {
       icon: <Plus className="h-4 w-4" />,
-      onClick: () => openModal("AddGroup"),
+      onClick: () => openModal("Add"),
       variant: "default",
       isAdd: true,
       label: "Tambah Group",

@@ -9,9 +9,8 @@ import { useModal } from "../../../../store/useModal";
 
 // --- Komponen Form ---
 export default function GroupForm() {
-  const { closeModal, modalData } = useModal();
+  const { closeModal, modalData, modalType } = useModal();
 
-  console.log(modalData);
   const form = useForm<IgroupRequestDTO>({
     resolver: zodResolver(GroupSchema),
     defaultValues: modalData
@@ -83,7 +82,12 @@ export default function GroupForm() {
           />
         </div>
         <div className="mt-6">
-          <Button label="Simpan" size="lg" type="submit" fullWidth />
+          <Button
+            label={modalType === "Add" ? "Simpan" : "Edit"}
+            size="lg"
+            type="submit"
+            fullWidth
+          />
         </div>
       </div>
     </form>
