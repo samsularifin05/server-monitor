@@ -18,7 +18,6 @@ export default function ProgramForm() {
       ? modalData
       : {
           _id: "",
-          kode_program: "",
           kode_toko: "",
           nama_program: "",
           deskripsi: "",
@@ -59,7 +58,7 @@ export default function ProgramForm() {
       <RenderTextInput control={form.control} name="_id" type="hidden" />
       <div className="grid grid-cols-2 gap-2">
         {/* Kode Group */}
-        <div>
+        {/* <div>
           <RenderTextInput
             type="text"
             control={form.control}
@@ -67,7 +66,7 @@ export default function ProgramForm() {
             placeholder="Masukkan Kode Program"
             label="Kode Program"
           />
-        </div>
+        </div> */}
         <div>
           <RenderTextInput
             type="text"

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useModal } from "../../store/useModal";
 
 interface GlobalModalProps {
@@ -17,6 +17,19 @@ export default function GlobalModal({
   size = "md",
 }: GlobalModalProps) {
   const { isOpen, closeModal } = useModal();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeModal]);
 
   if (!isOpen) return null;
 

@@ -42,6 +42,7 @@ export function useProgram() {
   return useQuery<IProgramResponseDTO[], Error>({
     queryKey: ["tm_program"],
     queryFn: get,
+    initialData: [],
   });
 }
 

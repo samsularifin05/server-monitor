@@ -23,8 +23,11 @@ const TableProgram = () => {
       key: "kode_toko",
       header: "Kode Toko",
     },
+    {
+      key: "nama_vps",
+      header: "Nama VPS",
+    },
     { key: "nama_program", header: "Nama Program" },
-    { key: "domain", header: "Domain" },
     { key: "deskripsi", header: "Deskripsi" },
   ];
 
