@@ -24,8 +24,8 @@ export default function UpdateStatusPage() {
 
   return (
     <AdminLayout activePage="updates">
-      <div className="flex flex-row gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 w-full md:w-2/3 lg:w-1/2 mx-auto">
           <div className="flex items-start gap-4 mb-6">
             <div className="p-3 bg-yellow-100 rounded-lg">
               <AlertCircle className="w-6 h-6 text-yellow-600" />
@@ -183,7 +183,7 @@ export default function UpdateStatusPage() {
         </div>
 
         {/* Example Preview */}
-        <div className="bg-gold-50 border h-52 border-gold-200 rounded-xl p-6">
+        <div className="bg-gold-50 border border-gold-200 rounded-xl p-4 sm:p-6 w-full md:w-1/3 lg:w-1/2 mx-auto mt-6 md:mt-0 h-fit">
           <h3 className="font-semibold text-gold-900 mb-2">
             Contoh Penggunaan:
           </h3>

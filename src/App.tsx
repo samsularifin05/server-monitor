@@ -2,21 +2,22 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import LoadingFallback from "./components/loading/loadingFallback"; // Tetap static karena digunakan di Suspense
 import { ConfirmDialog } from "./components/modal/confrmasiDialog";
-import ClientPage from "./pages/admin/client";
 
-const LoginPage = lazy(() => import("./pages/auth"));
-const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
-const UsersPage = lazy(() => import("./pages/admin/users"));
-const UpdateStatusPage = lazy(() => import("./pages/admin/UpdateStatusPage"));
+const ClientPage = lazy(() => import("@/pages/admin/client"));
+const ProgramPage = lazy(() => import("@/pages/admin/program"));
+const LoginPage = lazy(() => import("@/pages/auth"));
+const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
+const UsersPage = lazy(() => import("@/pages/admin/users"));
+const UpdateStatusPage = lazy(() => import("@/pages/admin/UpdateStatusPage"));
 const CustomerDashboard = lazy(
-  () => import("./pages/customer/CustomerDashboard")
+  () => import("@/pages/customer/CustomerDashboard")
 );
-const PublicStatusPage = lazy(() => import("./pages/public/PublicStatusPage"));
-const GroupPage = lazy(() => import("./pages/admin/group"));
-const DataBasePage = lazy(() => import("./pages/admin/database"));
-const NotFoundPage = lazy(() => import("./pages/admin/NotFoundPages"));
-const VpsPage = lazy(() => import("./pages/admin/vps"));
-const AdminChatPanel = lazy(() => import("./pages/admin/adminChat"));
+const PublicStatusPage = lazy(() => import("@/pages/public/PublicStatusPage"));
+const GroupPage = lazy(() => import("@/pages/admin/group"));
+const DataBasePage = lazy(() => import("@/pages/admin/database"));
+const NotFoundPage = lazy(() => import("@/pages/admin/NotFoundPages"));
+const VpsPage = lazy(() => import("@/pages/admin/vps"));
+const AdminChatPanel = lazy(() => import("@/pages/admin/adminChat"));
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin/data-users" element={<UsersPage />} />
           <Route path="/admin/client" element={<ClientPage />} />
           <Route path="/admin/database" element={<DataBasePage />} />
+          <Route path="/admin/program" element={<ProgramPage />} />
           <Route path="/admin/vps" element={<VpsPage />} />
           <Route path="/admin/updates" element={<UpdateStatusPage />} />
           <Route path="/admin/chat" element={<AdminChatPanel />} />

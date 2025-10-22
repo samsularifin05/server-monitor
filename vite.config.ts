@@ -1,16 +1,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   const timestamp = new Date().getTime();
 
   return {
     plugins: [react(), tailwindcss()],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
     optimizeDeps: {
       exclude: ["lucide-react"],
     },
-
     css: {
       modules: {
         localsConvention: "camelCase",

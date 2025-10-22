@@ -10,6 +10,7 @@ import {
   BoxIcon,
   MessageCircle,
   Store,
+  AppWindowIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { getItem } from "../../utils/localStroage";
@@ -45,6 +46,12 @@ const menuItems = [
     label: "Data Client",
     icon: Store,
     path: "/admin/client",
+  },
+  {
+    id: "program",
+    label: "Data Program",
+    icon: AppWindowIcon,
+    path: "/admin/program",
   },
   // {
   //   id: "database",
