@@ -68,9 +68,38 @@ export default function CustomerDashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50 relative">
+    <div className="relative min-h-screen bg-gray-50 overflow-hidden">
+      {/* Wave background */}
+      <svg
+        className="absolute bottom-0 left-0 w-full z-0"
+        viewBox="0 0 1440 280"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="waveGradient" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stopColor="#E8A504" />
+            <stop offset="100%" stopColor="#FFD97A" />
+          </linearGradient>
+        </defs>
+
+        {/* Lapisan utama (gradasi) */}
+        <path
+          fill="url(#waveGradient)"
+          fillOpacity="1"
+          d="M0,220 C200,180 400,260 720,220 C1040,180 1240,240 1440,200 L1440,320 L0,320 Z"
+        />
+
+        {/* Lapisan transparan (lapisan atas lebih lembut) */}
+        <path
+          fill="#FFD97A"
+          fillOpacity="0.5"
+          d="M0,240 C180,200 420,280 720,240 C1020,200 1260,260 1440,220 L1440,320 L0,320 Z"
+        />
+      </svg>
+
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-gray-200">
+      <header className="sticky top-0 z-10 bg-white border-b border-gray-200">
         <div className="px-4 py-4 mx-auto max-w-7xl md:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -106,7 +135,7 @@ export default function CustomerDashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="px-4 py-8 mx-auto space-y-6 max-w-7xl md:px-8">
+      <main className="relative z-10 px-4 py-8 mx-auto space-y-6 max-w-7xl md:px-8">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
@@ -156,7 +185,7 @@ export default function CustomerDashboard() {
         {notifications.length > 0 && (
           <div className="p-4 border border-yellow-200 bg-yellow-50 rounded-xl">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-yellow-600  mt-0.5" />
+              <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5" />
               <div className="flex-1">
                 <h3 className="mb-2 font-semibold text-yellow-900">
                   Notifikasi Gangguan

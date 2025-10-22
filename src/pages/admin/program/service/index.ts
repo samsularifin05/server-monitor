@@ -6,16 +6,16 @@ import { IProgramRequestDTO } from "../types/request.dto";
 // Ambil daftar produk berdasarkan user & tenant aktif
 const get = async (): Promise<IProgramResponseDTO[]> => {
   try {
-    const group = await apiInstance.get<IProgramResponseDTO[]>(`/progrms`);
-    return group.data || [];
+    const program = await apiInstance.get<IProgramResponseDTO[]>(`/program`);
+    return program.data || [];
   } catch (error) {
-    console.error("Error fetching progrms:", error);
+    console.error("Error fetching program:", error);
     return [];
   }
 };
 const deleteId = async (id: string): Promise<void> => {
   try {
-    await apiInstance.delete(`/progrms/${id}`);
+    await apiInstance.delete(`/program/${id}`);
   } catch (error) {
     // console.error("Error deleting group:", error);
     throw error;
@@ -23,7 +23,7 @@ const deleteId = async (id: string): Promise<void> => {
 };
 const create = async (data: IProgramRequestDTO): Promise<void> => {
   try {
-    await apiInstance.post(`/progrms`, data);
+    await apiInstance.post(`/program`, data);
   } catch (error) {
     throw error;
   }
@@ -31,7 +31,7 @@ const create = async (data: IProgramRequestDTO): Promise<void> => {
 
 const edit = async (data: IProgramRequestDTO): Promise<void> => {
   try {
-    await apiInstance.put(`/progrms/${data._id}`, data);
+    await apiInstance.put(`/program/${data._id}`, data);
   } catch (error) {
     throw error;
   }

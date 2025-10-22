@@ -1,3 +1,4 @@
+import { Loader2 } from "lucide-react";
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -57,7 +58,13 @@ export default function Button({
       ].join(" ")}
       {...props}
     >
-      {loading ? "Menyimpan..." : label || props.children}
+      {loading ? (
+        <>
+          <Loader2 /> Menyimpan...
+        </>
+      ) : (
+        label || props.children
+      )}
     </button>
   );
 }
