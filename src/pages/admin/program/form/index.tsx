@@ -52,7 +52,7 @@ export default function ProgramForm() {
   };
 
   const loadingButton = isLoading("button", "program");
-  const isEdit = modalType === "Edit";
+  // const isEdit = modalType === "Edit";
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="">
@@ -64,7 +64,6 @@ export default function ProgramForm() {
             type="text"
             control={form.control}
             name="kode_program"
-            readOnly={isEdit}
             placeholder="Masukkan Kode Program"
             label="Kode Program"
           />
@@ -84,7 +83,6 @@ export default function ProgramForm() {
             type="text"
             control={form.control}
             name="nama_program"
-            readOnly={isEdit}
             placeholder="Masukkan Nama Program"
             label="Nama Program"
           />
@@ -94,7 +92,6 @@ export default function ProgramForm() {
             type="text"
             control={form.control}
             name="domain"
-            readOnly={isEdit}
             placeholder="Masukkan Domain"
             label="Domain"
           />
@@ -105,7 +102,6 @@ export default function ProgramForm() {
             type="text"
             control={form.control}
             name="deskripsi"
-            readOnly={isEdit}
             placeholder="Masukkan Deskripsi"
             label="Deskripsi"
           />

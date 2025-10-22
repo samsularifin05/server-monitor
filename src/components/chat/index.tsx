@@ -55,6 +55,7 @@ export default function LiveChat() {
     setMessages((prev) => [...prev, { from: "user", text: input }]);
     audioRef.current?.play().catch((err) => console.error(err));
     setInput("");
+    // document.getElementById("chatInput")?.focus();
   };
 
   useEffect(() => {
@@ -216,6 +217,18 @@ export default function LiveChat() {
     };
   }, [isMobile]);
 
+  useEffect(() => {
+    if (isMobile) {
+      if (open) {
+        document.body.style.overflow = "hidden"; // nonaktifkan scroll
+        document.body.style.height = "100vh"; // cegah overscroll bounce di iOS
+      } else {
+        document.body.style.overflow = "";
+        document.body.style.height = "";
+      }
+    }
+  }, [open, isMobile]);
+
   return (
     <div
       className={
@@ -313,7 +326,9 @@ export default function LiveChat() {
           {/* Area chat */}
           <div
             ref={chatRef}
-            className="flex-1 p-4 space-y-3 overflow-y-auto bg-white"
+            className={`flex-1 p-4 space-y-3 overflow-y-auto bg-white ${
+              isMobile ? "mb-16" : ""
+            } `}
           >
             {messages.map((msg, i) => (
               <div
@@ -413,6 +428,7 @@ export default function LiveChat() {
             />
 
             <input
+              id="chatInput"
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
