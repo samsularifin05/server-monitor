@@ -93,7 +93,7 @@ function LoginPage() {
         </form>
 
         {/* Info demo */}
-        <div className="mt-8 text-center text-gray-600 text-sm leading-relaxed">
+        {/* <div className="mt-8 text-center text-gray-600 text-sm leading-relaxed">
           <p className="font-semibold text-gold-600">Akun Demo</p>
           <p className="mt-2">
             <span className="font-medium">Customer:</span> demo / demo
@@ -102,7 +102,7 @@ function LoginPage() {
             <span className="font-medium">Admin:</span> engineer /
             developer-b3r4sm3r4h
           </p>
-        </div>
+        </div> */}
       </div>
 
       {/* Wave background */}

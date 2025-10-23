@@ -4,21 +4,27 @@ import { GlobalModal } from "../../../components";
 import ProgramForm from "./form";
 import { useModal } from "../../../store/useModal";
 import ListProgram from "./table/listProgram";
+import FormActionProgram from "./form/formActionProgram";
+import { IProgramResponseDTO } from "./types/response.dto";
 
 function WrapperGropup() {
-  const { modalType } = useModal();
+  const { modalData, modalType } = useModal<IProgramResponseDTO>();
 
   return (
     <AdminLayout activePage="program">
       <ListProgram />
-      {modalType === "Add" && (
-        <GlobalModal
-          title={modalType === "Add" ? "Tambah Program" : "Edit Program"}
-          size="lg"
-        >
-          <ProgramForm />
-        </GlobalModal>
-      )}
+      <GlobalModal
+        title={
+          modalType === "Add"
+            ? "Tambah Program"
+            : modalType === "Detail"
+            ? modalData?.nama_program
+            : "Edit Program"
+        }
+        size={modalType === "Add" ? "lg" : "md"}
+      >
+        {modalType === "Add" ? <ProgramForm /> : <FormActionProgram />}
+      </GlobalModal>
     </AdminLayout>
   );
 }

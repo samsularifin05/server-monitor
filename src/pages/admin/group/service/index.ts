@@ -42,6 +42,7 @@ export function useGroup() {
   return useQuery<IGroupResponseDTO[], Error>({
     queryKey: ["tm_groups"],
     queryFn: get,
+    initialData: [],
   });
 }
 

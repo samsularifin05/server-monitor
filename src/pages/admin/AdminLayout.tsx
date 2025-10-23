@@ -130,7 +130,7 @@ export default function AdminLayout({
                 <span>{item.label}</span>
 
                 {item?.badge !== undefined && item?.badge > 0 && (
-                  <span className="ml-auto bg-gold-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                  <span className="ml-auto bg-gold-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-5 text-center">
                     {item.badge > 99 ? "99+" : item.badge}
                   </span>
                 )}

@@ -1,12 +1,6 @@
-export type StoreType = {
-  id: number;
-  name: string;
-  server: string;
-  status: "normal" | "gangguan" | "down";
-  lastUpdate: string;
-};
+import { IProgramResponseDTO } from "@/pages/admin/program/types/response.dto";
 
 // Props
 export type StoresTableProps = {
-  stores: StoreType[];
+  stores: IProgramResponseDTO[];
 };

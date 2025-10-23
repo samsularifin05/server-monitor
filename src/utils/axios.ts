@@ -48,8 +48,14 @@ class ApiInstance {
 
         if (originalRequest && axios.isAxiosError(error)) {
           const errResponse = error as AxiosError<ErrorResponse>;
-          const message =
+          const errorMessage =
             errResponse.response?.data?.message || errResponse.message;
+          let message = "";
+          try {
+            message = JSON.parse(errorMessage);
+          } catch (error) {
+            message = errorMessage;
+          }
 
           if (/Token has expired/i.test(message) && !originalRequest._retry) {
             originalRequest._retry = true;

@@ -56,6 +56,7 @@ const RenderTextInput = <TFieldValues extends FieldValues = FieldValues>({
           {/* wrapper untuk input + ikon */}
           <div className="relative">
             <input
+              autoComplete="off"
               id={name}
               {...field}
               readOnly={readOnly}

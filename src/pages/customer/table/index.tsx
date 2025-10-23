@@ -50,7 +50,7 @@ const StoresTable: React.FC<StoresTableProps> = ({ stores }) => {
   const itemsPerPage = 3;
 
   const filteredStores = stores.filter((store) =>
-    store.name.toLowerCase().includes(searchTerm.toLowerCase())
+    store.nama_program.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredStores.length / itemsPerPage);
@@ -93,7 +93,7 @@ const StoresTable: React.FC<StoresTableProps> = ({ stores }) => {
                 Nama Toko
               </th>
               <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">
-                Server
+                Domain
               </th>
               <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">
                 Status
@@ -107,7 +107,7 @@ const StoresTable: React.FC<StoresTableProps> = ({ stores }) => {
             {paginatedStores.length > 0 ? (
               paginatedStores.map((store) => (
                 <tr
-                  key={store.id}
+                  key={store._id}
                   className="transition-colors hover:bg-gray-50"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -116,29 +116,44 @@ const StoresTable: React.FC<StoresTableProps> = ({ stores }) => {
                         <StoreIcon className="w-5 h-5 text-gold-600" />
                       </div>
                       <span className="text-sm font-medium text-gray-800">
-                        {store.name}
+                        {store.nama_program}
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">
-                    {store.server}
+                    {store.domain ? (
+                      <a
+                        href={
+                          store.domain.startsWith("http")
+                            ? store.domain
+                            : `https://${store.domain}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-gold-400"
+                      >
+                        {store.domain}
+                      </a>
+                    ) : (
+                      "-"
+                    )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                        store.status
+                        store.status_online ? "normal" : "down"
                       )}`}
                     >
                       <span
                         className={`w-2 h-2 rounded-full ${getStatusDot(
-                          store.status
+                          store.status_online ? "normal" : "down"
                         )}`}
                       ></span>
-                      {getStatusLabel(store.status)}
+                      {getStatusLabel(store.status_online ? "normal" : "down")}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">
-                    {store.lastUpdate}
+                    {/* {store.lastUpdate} */}
                   </td>
                 </tr>
               ))

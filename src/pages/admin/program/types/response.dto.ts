@@ -11,5 +11,6 @@ export interface IProgramResponseDTO {
   tgl_expire_ssl: string;
   tgl_expire_domain: string;
   status_online: boolean;
+  status_maintance: boolean;
   status_created: boolean;
 }

@@ -9,49 +9,51 @@ import { useNavigate } from "react-router-dom";
 
 import LiveChat from "../../components/chat";
 import StoresTable from "./table";
-import { StoreType } from "./types";
+import { useProgram } from "../admin/program/service";
+import { getItem } from "@/utils/localStroage";
+import { IResponseLoginDto } from "@/types/userdata";
 
 export default function CustomerDashboard() {
   const customerName = "PT Teknologi Maju";
   const customerEmail = "info@tekmaju.com";
 
-  const stores: StoreType[] = [
-    {
-      id: 1,
-      name: "Toko Cabang Jakarta Pusat",
-      server: "MongoDB Server",
-      status: "normal",
-      lastUpdate: "2 menit lalu",
-    },
-    {
-      id: 2,
-      name: "Toko Cabang Bandung",
-      server: "Alibaba Cloud",
-      status: "gangguan",
-      lastUpdate: "15 menit lalu",
-    },
-    {
-      id: 3,
-      name: "Toko Cabang Surabaya",
-      server: "MongoDB Server",
-      status: "normal",
-      lastUpdate: "1 jam lalu",
-    },
-    {
-      id: 4,
-      name: "Toko Cabang Medan",
-      server: "Google Cloud",
-      status: "normal",
-      lastUpdate: "30 menit lalu",
-    },
-    {
-      id: 5,
-      name: "Toko Cabang Yogyakarta",
-      server: "Biznet Server",
-      status: "normal",
-      lastUpdate: "45 menit lalu",
-    },
-  ];
+  // const stores: StoreType[] = [
+  //   {
+  //     id: 1,
+  //     name: "Toko Cabang Jakarta Pusat",
+  //     server: "MongoDB Server",
+  //     status: "normal",
+  //     lastUpdate: "2 menit lalu",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Toko Cabang Bandung",
+  //     server: "Alibaba Cloud",
+  //     status: "gangguan",
+  //     lastUpdate: "15 menit lalu",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Toko Cabang Surabaya",
+  //     server: "MongoDB Server",
+  //     status: "normal",
+  //     lastUpdate: "1 jam lalu",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Toko Cabang Medan",
+  //     server: "Google Cloud",
+  //     status: "normal",
+  //     lastUpdate: "30 menit lalu",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Toko Cabang Yogyakarta",
+  //     server: "Biznet Server",
+  //     status: "normal",
+  //     lastUpdate: "45 menit lalu",
+  //   },
+  // ];
 
   const notifications = [
     {
@@ -62,10 +64,21 @@ export default function CustomerDashboard() {
       time: "15 menit lalu",
     },
   ];
-  const normalStores = stores.filter((s) => s.status === "normal").length;
-  const problemStores = stores.filter((s) => s.status !== "normal").length;
 
   const navigate = useNavigate();
+
+  const userdata = getItem<IResponseLoginDto>("userdata");
+  const { data: stores } = useProgram(userdata.kode_group);
+
+  const normalStores = stores.filter((s) => s.status_online).length;
+  const problemStores = stores.filter(
+    (s) => !s.status_online && !s.status_maintance
+  ).length;
+
+  const lotoutApp = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <div className="relative min-h-screen bg-gray-50 overflow-hidden">
@@ -124,7 +137,7 @@ export default function CustomerDashboard() {
                 {customerName.charAt(0)}
               </div>
               <button
-                onClick={() => navigate("/")}
+                onClick={() => lotoutApp()}
                 className="p-2 text-red-600 cursor-pointer transition-colors rounded-lg hover:bg-red-50"
               >
                 <LogOut className="w-5 h-5" />

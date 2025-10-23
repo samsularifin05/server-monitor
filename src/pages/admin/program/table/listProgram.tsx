@@ -1,9 +1,8 @@
 import { ChevronLeft, ChevronRight, Plus, Search } from "lucide-react";
 import { useProgram } from "../service";
 import { useState } from "react";
-import { IProgramResponseDTO } from "../types/response.dto";
 import { useModal } from "@/store/useModal";
-import GlobalModal from "@/components/modal";
+// import GlobalModal from "@/components/modal";
 
 const ListProgram = () => {
   const { data, isLoading } = useProgram();
@@ -43,9 +42,9 @@ const ListProgram = () => {
     setCurrentPage(page);
   };
 
-  const { openModal, closeModal, modalType } = useModal();
-  const [selectedProgram, setSelectedProgram] =
-    useState<IProgramResponseDTO | null>(null);
+  const { openModal } = useModal();
+  // const [selectedProgram, setSelectedProgram] =
+  //   useState<IProgramResponseDTO | null>(null);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 py-2 px-4 sm:px-6 lg:px-8">
@@ -114,7 +113,7 @@ const ListProgram = () => {
                   key={program._id}
                   className="bg-white rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 group overflow-hidden relative"
                   onClick={() => {
-                    setSelectedProgram(program);
+                    // setSelectedProgram(program);
                     openModal("Detail", program);
                   }}
                 >
@@ -251,116 +250,6 @@ const ListProgram = () => {
                 </div>
               ))}
         </div>
-
-        {/* Modal for program detail */}
-        {modalType === "Detail" && (
-          <GlobalModal
-            title={selectedProgram?.nama_program || "Detail Program"}
-            position="center"
-            size="md"
-            footer={
-              selectedProgram && (
-                <div className="flex gap-2">
-                  <button
-                    className="px-4 py-2 rounded-lg cursor-pointer bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-colors"
-                    onClick={() => {
-                      // TODO: handle activate logic
-                      closeModal();
-                    }}
-                  >
-                    Aktifkan
-                  </button>
-                  <button
-                    className="px-4 py-2 rounded-lg cursor-pointer bg-rose-500 text-white font-semibold hover:bg-rose-600 transition-colors"
-                    onClick={() => {
-                      // TODO: handle deactivate logic
-                      closeModal();
-                    }}
-                  >
-                    Nonaktifkan
-                  </button>
-                </div>
-              )
-            }
-          >
-            {selectedProgram && (
-              <div className="space-y-3">
-                <div>
-                  <span className="text-xs text-slate-500 font-medium">
-                    Domain:
-                  </span>
-                  <span className="ml-1 text-sm font-semibold text-slate-700">
-                    {selectedProgram.domain}
-                  </span>
-                </div>
-                {selectedProgram.deskripsi !== "-" && (
-                  <div>
-                    <span className="text-xs text-slate-500 font-medium">
-                      Deskripsi:
-                    </span>
-                    <span className="ml-1 text-sm text-slate-700">
-                      {selectedProgram.deskripsi}
-                    </span>
-                  </div>
-                )}
-                <div className="grid grid-cols-2 gap-x-6 gap-y-2 mt-1">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-slate-500 font-medium">
-                      Kode Toko:
-                    </span>
-                    <span className="text-sm font-semibold text-slate-700">
-                      {selectedProgram.kode_toko &&
-                      selectedProgram.kode_toko !== "-"
-                        ? selectedProgram.kode_toko
-                        : "-"}
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-slate-500 font-medium">
-                      Port:
-                    </span>
-                    <span className="text-sm font-semibold text-slate-700">
-                      {selectedProgram.port ? selectedProgram.port : "-"}
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-slate-500 font-medium">
-                      Expire Domain:
-                    </span>
-                    <span className="text-sm font-semibold text-slate-700">
-                      {selectedProgram.tgl_expire_domain &&
-                      selectedProgram.tgl_expire_domain !== "-"
-                        ? selectedProgram.tgl_expire_domain
-                        : "-"}
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-slate-500 font-medium">
-                      Expire SSL:
-                    </span>
-                    <span className="text-sm font-semibold text-slate-700">
-                      {selectedProgram.tgl_expire_ssl &&
-                      selectedProgram.tgl_expire_ssl !== "-"
-                        ? selectedProgram.tgl_expire_ssl
-                        : "-"}
-                    </span>
-                  </div>
-                  {selectedProgram.kode_vps &&
-                    selectedProgram.kode_vps !== "-" && (
-                      <div className="flex flex-col col-span-2">
-                        <span className="text-xs text-slate-500 font-medium">
-                          Kode VPS:
-                        </span>
-                        <span className="text-sm font-semibold text-slate-700">
-                          {selectedProgram.kode_vps}
-                        </span>
-                      </div>
-                    )}
-                </div>
-              </div>
-            )}
-          </GlobalModal>
-        )}
 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
